@@ -64,7 +64,6 @@ namespace Bag {
 					cards.Add(card);
 				}
 			}
-			Debug.Log(1);
 		}
 
 		/// <summary>
