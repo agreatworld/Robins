@@ -93,6 +93,7 @@ namespace GameMechanics {
 		/// <summary>
 		/// 1. 准备阶段
 		/// 2. 判定阶段
+		/// 3. 触发阶段
 		/// </summary>
 		private void RoundsBegin() {
 			PrepareStage();
@@ -105,7 +106,6 @@ namespace GameMechanics {
 		/// 1. 补满行动次数
 		/// 2. 现存的鸟出产羽毛
 		/// 3. 商店物品刷新
-		/// 4. 季节范围内的气候变化
 		/// </summary>
 		private void PrepareStage() {
 
