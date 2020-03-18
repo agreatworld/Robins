@@ -11,7 +11,8 @@ public class MouseEvents : MonoBehaviour {
 	private void Awake() {
 		material = GetComponent<SpriteRenderer>().material;
 		originalMaterial = new Material(Shader.Find("Sprites/Default"));
-		rimLightMaterial = Resources.Load<Material>("Material/RimLight");
+		rimLightMaterial = Resources.Load<Material>("Material/OutLight");
+		//rimLightMaterial = Resources.Load<Material>("Material/RimLight");
 	}
 
 	private void OnMouseEnter() {
