@@ -3,7 +3,8 @@
 	Properties
 	{
 		_MainTex("Texture", 2D) = "white" {}
-		_Color("Light Color", Color) = (1, 1, 1, 1)
+		_LightColor("Light Color", Color) = (1, 1, 1, 1)
+		_GlowColor("Glow Colot", COlor) = (1, 1, 1, 1)
 	}
 		SubShader
 		{
@@ -18,7 +19,8 @@
 
 				#include "UnityCG.cginc"
 
-			float4 _Color;
+			float4 _LightColor;
+			float4 _GlowColor;
 			float2 _MainTex_TexelSize;
 
 			struct appdata {
@@ -43,28 +45,32 @@
 			float getRadio(float2 p) {
 				float sum = 0;
 				float count = 10;
-				float length = 0.1;
+				float length = 0.017;
 				float deltaAngle = 360 / count;
-				[unroll]for (int i = 0; i < count; ++i) {
+				[unroll] for (int i = 0; i < count; ++i) {
 					sum += tex2D(_MainTex, p + length * float2(cos(i * deltaAngle), sin(i * deltaAngle))).a;
 				}
 				float radio = sum / count;
 				return radio;
 			}
 
+
 			fixed4 frag(v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
 
 			float radio = getRadio(i.uv);
-			float4 result;
-			if (radio < 1 && col.a == 0) {
-				result = lerp(col, float4(_Color.rgb, radio), radio);
+			float4 result = col;
+			if (col.a == 0) {
+				result = _LightColor;
 				return result;
-			} else {
-				
 			}
-			return col;
+			if (radio < 0.66) {
+				result = lerp(col, _GlowColor,1 - radio);
+				if (radio < 0.56)
+				result = lerp(col, _LightColor,1 - radio);
+			}
+			return result;
 			}
 		ENDCG
 	}

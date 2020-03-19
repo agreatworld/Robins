@@ -111,12 +111,12 @@
                 }
                 float4 innerGlowColor = float4(0, 0, 0, 1);
                 if (_ShowInnerGlow) {
-                    const float radius = 0.01;
+                    const float radius = 0.02 * _InnerGlowWidth;
                     float roundAlphaSum = CalculateRoundAlphaSum(i.uv[4], _InnerGlowIntensity * radius);
                     float innerGlowAlpha = 1 - roundAlphaSum / _InnerGlowDensity;
                     innerGlowAlpha *= innerGlowAlpha;
                     
-                    innerGlowColor += lerp(originalColor, float4(_InnerGlowColor.rgb, innerGlowAlpha), innerGlowAlpha * _InnerGlowWidth);
+                    innerGlowColor += lerp(originalColor, float4(_InnerGlowColor.rgb, innerGlowAlpha), innerGlowAlpha);
                 }
                 if (needOutline) {
                     return outlineColor;
