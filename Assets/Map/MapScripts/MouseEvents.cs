@@ -2,24 +2,37 @@
 
 public class MouseEvents : MonoBehaviour {
 
-	private Material material;
+	private SpriteRenderer spriteRenderer;
 
 	private Material originalMaterial;
 
 	private Material rimLightMaterial;
 
 	private void Awake() {
-		material = GetComponent<SpriteRenderer>().material;
+		spriteRenderer = GetComponent<SpriteRenderer>();
 		originalMaterial = new Material(Shader.Find("Sprites/Default"));
 		rimLightMaterial = Resources.Load<Material>("Material/RimLight");
+
 	}
 
-	private void OnMouseEnter() {
-		GetComponent<SpriteRenderer>().material = rimLightMaterial;
+
+	private void OnMouseOver() {
+		if (MapUIController.Instance.ShouldReactMaterial()) {
+			HighLightSubMap();
+		}
 	}
 
 	private void OnMouseExit() {
-		GetComponent<SpriteRenderer>().material = originalMaterial;
+		if (MapUIController.Instance.ShouldReactMaterial()) {
+			ResetMaterial();
+		}
 	}
 
+	public void ResetMaterial() {
+		spriteRenderer.material = originalMaterial;
+	}
+
+	public void HighLightSubMap() {
+		spriteRenderer.material = rimLightMaterial;
+	}
 }
