@@ -33,4 +33,43 @@ MVP均采用单例模式，但是控制在`Bag`命名空间中，所有的字段
    3. 触发阶段
       1. 新入住鸟类相关剧情动画
 
+## 子地块及其动画、UI交互
 
+### 主要功能说明
+
+- 鼠标悬浮在子地块上时，相应子地块换材质
+- 点击子地块出现三个功能按钮及一个悬浮按钮
+- 点击悬浮按钮收放功能按钮，此时只显示悬浮按钮
+- 点击非本地块区域收回所有按钮
+
+### Hierarchy结构
+
+* RootMap
+  * SubMaps
+    * 0(0~9)	*采取单个数字作为名字便于脚本逻辑实现，共10个地块*
+      * Canvas	*Render Mode: World Space*
+        * MapButtonsHolder
+          * SeedButton
+          * FeedButton
+          * WaterButton
+
+### 脚本挂载情况
+
+- RootMap
+  - MapUIController
+    - 单例模式，控制全局的地块交互，内含多个控制UI显示、隐藏的方法，这些方法只是更新该脚本中的控制变量和对相应按钮组上挂载的脚本中的方法进行的简单调用。其他脚本中大部分对UI的控制会调用这些公有方法，除了真正实现控制UI的脚本
+    - 结构体`SubMapInfo`中涵括了控制UI所需的全部信息，并且声明了一个该结构体的数组，数组大小与子地块数一致，这些信息在`Awake()`中被加载，涉及到`transform.Find()`和`GetComponent()`，加载的信息总量略微庞大，可能会造成加载卡界面
+    - `Update()`中执行鼠标点击检测以及鼠标射线检测，并处理点击对象对地图当前状态的影响
+- 0(0~9)
+  - MouseEvents
+    - 公开更换子地块材质的方法，在MapUIController控制地图状态时会调用到，这个脚本也是`SubMapInfo`的其中之一
+    - 鼠标移入、悬浮的检测是在生命周期`OnMousexxx`中实现的，需要加入碰撞器
+- MapButtonsHolder
+  - MapButtonsHolderEvents
+    - 更新鼠标移入移出悬浮按钮时的相关状态变量，最终目的是实现鼠标在悬浮按钮中时的点击会触发功能按钮的回收，在悬浮按钮外的点击会触发所有按钮的回收
+  - MapUIAnimation
+    - 控制各按钮显示与隐藏的动画效果，公开了一个Vector3数组(Offsets)便于定义按钮动画的偏移量
+    - 涉及到的字段初始化也比较多，但没有MapUIController中多
+- Seed/Feed/Water Button
+  - MapSeed/MapFeed/MapWater Button
+    - 三个脚本分别定义了三个功能按钮的点击事件

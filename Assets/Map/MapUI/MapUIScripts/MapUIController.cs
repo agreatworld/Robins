@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class MapUIController : MonoBehaviour {
 
@@ -14,6 +13,7 @@ public class MapUIController : MonoBehaviour {
 
 	private SubMapInfo[] infoArray;
 
+	[HideInInspector]
 	public int showingIndex = -1;
 
 	private void Awake() {
