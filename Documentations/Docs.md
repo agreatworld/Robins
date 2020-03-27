@@ -64,6 +64,8 @@ MVP均采用单例模式，但是控制在`Bag`命名空间中，所有的字段
   - MouseEvents
     - 公开更换子地块材质的方法，在MapUIController控制地图状态时会调用到，这个脚本也是`SubMapInfo`的其中之一
     - 鼠标移入、悬浮的检测是在生命周期`OnMousexxx`中实现的，需要加入碰撞器
+  - SubMapDifferentiation
+    - 定义了地块可变化的地貌，共四种枚举：Lake, Mountain, Forest, Bushveld
 - MapButtonsHolder
   - MapButtonsHolderEvents
     - 更新鼠标移入移出悬浮按钮时的相关状态变量，最终目的是实现鼠标在悬浮按钮中时的点击会触发功能按钮的回收，在悬浮按钮外的点击会触发所有按钮的回收
