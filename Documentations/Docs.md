@@ -84,16 +84,17 @@ MVP均采用单例模式，但是控制在`Bag`命名空间中，所有的字段
 
 ### 脚本功能
 
-`DialogueManager`控制文本流程的交互、推进等
+`DialogueManager`管理对话树的流程推进，其中包含解析剧本的方法，并公开方法给外部一定的控制权，但是都经过二次封装来保护两个私有的内部类数据。一个内部类用来存放解析的剧本，这个内部类不涉及monobehaviour，在脚本中、内部类外部提供方法根据这个`Script`类的信息加载UI；另一个`DialogueTree`类控制的则是UI显示层。更细微的控制比如等待上一条语句显示完毕后方可开始显示下一条则是在`DialogueTree`中实现，若剧本涉及到多个对话者则需要更换头像，也是在这里完成的。
 
-`DialogueController`控制整个UI组的显示，并且对外提供修改的方法，采取单例模式
+`DialogueController`控制对话树的显示与隐藏，在外部触发剧情时对话树系统的入口就在这里
 
 #### DialogueManager
 
 两个内部类：
 
 1. Script：解析剧本
-2. DialogueTree：控制UI显示
+2. DialogueTree：控制UI显示和交互细节
+
 
 ### 注意
 
