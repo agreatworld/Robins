@@ -16,10 +16,13 @@ public class MapUIController : MonoBehaviour {
 	[HideInInspector]
 	public int showingIndex = -1;
 
+	private int subMapCount;
+
 	private void Awake() {
 		Instance = this;
 		Transform subMaps = transform.Find("SubMaps");
 		infoArray = new SubMapInfo[subMaps.childCount];
+		subMapCount = subMaps.childCount;
 		for (int i = 0; i < infoArray.Length; ++i) {
 			Transform subMap = subMaps.GetChild(i);
 			infoArray[i].mouseEvents = subMap.GetComponent<MouseEvents>();
@@ -42,7 +45,7 @@ public class MapUIController : MonoBehaviour {
 						// -1表示当前没有显示的按钮
 						int index = -1;
 						if (int.TryParse(hitName, out index)) {
-							if (index > -1 && index < 10) {
+							if (index > -1 && index < subMapCount) {
 								ShowAll(index);
 								return;
 							}

@@ -49,11 +49,11 @@ public class MapUIAnimation : MonoBehaviour, IPointerClickHandler {
 		for (int i = 0; i < offsets.Length; ++i) {
 			offsets[i] *= buttonScale.x;
 		}
-
+		
 		// 初始化按钮UI
 		rootButton.DOFade(0, 0.01f);
 		foreach (var buttonTransform in buttonTransforms) {
-			buttonTransform.position = rootTransform.position;
+			buttonTransform.position = rootTransform.transform.position;
 			buttonTransform.localScale = rootTransform.localScale;
 		}
 		UpdateAlphas();
@@ -67,7 +67,7 @@ public class MapUIAnimation : MonoBehaviour, IPointerClickHandler {
 		rootShowing = true;
 		UpdateAlphas();
 		for (int i = 0; i < 3; ++i) {
-			RectTransform go = buttonTransforms[i];
+			var go = buttonTransforms[i].transform;
 			Vector3 offset = offsets[i];
 			Vector3 endValue1 = startPos[i] + offset;
 			Vector3 endValue2 = endValue1 - 0.1f * offset;
@@ -91,7 +91,7 @@ public class MapUIAnimation : MonoBehaviour, IPointerClickHandler {
 		rootShowing = true;
 		UpdateAlphas();
 		for (int i = 0; i < 3; ++i) {
-			RectTransform go = buttonTransforms[i];
+			var go = buttonTransforms[i].transform;
 			go.DOMove(rootTransform.position, 0.3f);
 			go.DOScale(rootScale, 0.2f);
 		}
