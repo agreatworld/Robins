@@ -11,6 +11,8 @@ public class DialogueController : MonoBehaviour {
 
 	public GameObject dialogue;
 
+	public bool isDialoguePlaying = false;
+
 	private void Awake() {
 		Instance = this;
 		dialogue = transform.Find("Dialogue").gameObject;
@@ -18,9 +20,11 @@ public class DialogueController : MonoBehaviour {
 
 	public void HideDialogue() {
 		dialogue.SetActive(false);
+		isDialoguePlaying = false;
 	}
 
 	public void ShowDialogue() {
 		dialogue.SetActive(true);
+		isDialoguePlaying = true;
 	}
 }

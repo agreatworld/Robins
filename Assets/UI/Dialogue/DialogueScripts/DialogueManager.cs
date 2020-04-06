@@ -62,6 +62,13 @@ public class DialogueManager : MonoBehaviour {
 				lastContentFinished = true;
 			});
 		}
+
+		public void Reset() {
+			avatar.sprite = null;
+			name.text = "";
+			content.text = "";
+		}
+
 	}
 
 	/// <summary>
@@ -107,6 +114,15 @@ public class DialogueManager : MonoBehaviour {
 		public string GetNextContent() {
 			return atScriptsEnd ? "" : contents[index];
 		}
+
+		public void Reset() {
+			names.Clear();
+			contents.Clear();
+			isSingleProtagonist = true;
+			atScriptsEnd = false;
+			index = -1;
+		}
+
 	}
 
 	#endregion
@@ -129,7 +145,6 @@ public class DialogueManager : MonoBehaviour {
 		Image autoPlayButton = dialogue.Find("AutoPlayButton").GetComponent<Image>();
 		Image historyInfoButton = dialogue.Find("HistoryInfoButton").GetComponent<Image>();
 		dialogueTree = new DialogueTree(avatar, name, content, autoPlayButton, historyInfoButton);
-		ParseScript("PlotScripts/test.txt");
 	}
 	#endregion
 
@@ -149,7 +164,7 @@ public class DialogueManager : MonoBehaviour {
 	public void DialogueHistoryInfoButtonChangeTo(Sprite sprite) {
 		dialogueTree.HistoryInfoButtonChangeTo(sprite);
 	}
-	public void ParseScript(string scriptPath) {
+	private void ParseScript(string scriptPath) {
 		bool isSingleProtagonist = false;
 		List<string> names = new List<string>();
 		List<string> contents = new List<string>();
@@ -194,6 +209,17 @@ public class DialogueManager : MonoBehaviour {
 		}
 		dialogueScript.UpdateIndex();
 		dialogueTree.ContentChangeTo(dialogueScript.GetNextContent());
+	}
+
+	public void ResetAll() {
+		dialogueScript.Reset();
+		dialogueTree.Reset();
+	}
+
+	public void LoadScript(string scriptPath) {
+		ParseScript(scriptPath);
+		DialogueController.Instance.ShowDialogue();
+
 	}
 
 	#endregion
