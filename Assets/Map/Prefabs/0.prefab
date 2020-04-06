@@ -32,8 +32,8 @@ RectTransform:
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children:
   - {fileID: 1819799643674175945}
-  - {fileID: 1819799642950444506}
   - {fileID: 1819799643987747307}
+  - {fileID: 1819799642950444506}
   m_Father: {fileID: 1819799643935452743}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 1819799642950444506}
   - component: {fileID: 1819799642950444504}
   - component: {fileID: 1819799642950444505}
-  - component: {fileID: 1819799642950444327}
+  - component: {fileID: 3348904603508848688}
   m_Layer: 0
   m_Name: FeedButton
   m_TagString: Untagged
@@ -388,7 +388,7 @@ RectTransform:
   m_LocalScale: {x: 2.2, y: 2.2, z: 1}
   m_Children: []
   m_Father: {fileID: 1819799642229520242}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -430,7 +430,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 1
---- !u!114 &1819799642950444327
+--- !u!114 &3348904603508848688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -453,9 +453,9 @@ GameObject:
   - component: {fileID: 1819799643674175945}
   - component: {fileID: 1819799643674175959}
   - component: {fileID: 1819799643674175944}
-  - component: {fileID: 1819799643674175958}
+  - component: {fileID: 8726399907581685161}
   m_Layer: 0
-  m_Name: SeedButton
+  m_Name: ChangeTypesButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 1
---- !u!114 &1819799643674175958
+--- !u!114 &8726399907581685161
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -524,7 +524,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1819799643674175946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 021ce1075c42f074084ef808ad6a1431, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ca79d1bcb881694aba348e3153c3f0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1819799643935452792
@@ -637,9 +637,9 @@ GameObject:
   - component: {fileID: 1819799643987747307}
   - component: {fileID: 1819799643987747305}
   - component: {fileID: 1819799643987747306}
-  - component: {fileID: 1819799643987747304}
+  - component: {fileID: 6432423621888217017}
   m_Layer: 0
-  m_Name: WaterButton
+  m_Name: ConstructButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -657,7 +657,7 @@ RectTransform:
   m_LocalScale: {x: 2.2, y: 2.2, z: 1}
   m_Children: []
   m_Father: {fileID: 1819799642229520242}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -699,7 +699,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 1
---- !u!114 &1819799643987747304
+--- !u!114 &6432423621888217017
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -708,6 +708,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1819799643987747308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cccde3821a48a1469ed78ba259052d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a65c6c45d42a5d4fa01d2e281ad1a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
