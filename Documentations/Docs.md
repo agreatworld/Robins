@@ -140,5 +140,12 @@ MVP均采用单例模式，但是控制在`Bag`命名空间中，所有的字段
 
    2. GameGuide中有布尔变量记录是否有需求在等待对话树播放完毕，譬如在对话结束后播放动画
 
-
 **All in all，这是为了在剧本对话结束后向对话剧情的发起者发出一个信号，以便于处理对话之后的逻辑譬如播放动画。**
+
+下面简述示例的实现过程：
+
+1. 外部加载脚本，调用DialogueManager中的`LoadDialogue(scriptPath, reacts)`方法。这里传入的reacts是一个委托列表，其定义在DialiogueScript中，但是委托AttachToSentence是定义在DialogueManager中的
+2. DialogueManager内部调用ParseScript来解析剧本，并对成员变量dialogScript进行初始化
+3. 开始轮放对话，若上一条未播放完毕，则不会进行下一条播放。播放完毕的定义是语句内容DOText显示完毕和伴随交互结束，**每一个伴随交互的调用方法（委托）末尾都要调用DialogueManger中的UpdateDialogueStatus方法来更新DialogueTree中的状态变量，**即告诉dialogueTree上一条语句播放完毕，可以开始播放下一条了
+4. 剧本播放完毕隐藏对话树
+
