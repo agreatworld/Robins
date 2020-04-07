@@ -38,6 +38,12 @@ public class DialogueManager : MonoBehaviour {
 			this.historyInfoButton = historyInfoButton;
 		}
 
+		public void Init(string name, string content, Sprite sprite) {
+			this.name.text = name;
+			avatar.sprite = sprite;
+			ContentChangeTo(content);
+		}
+
 		public void AvatarChangeTo(Sprite newAvatar) {
 			avatar.sprite = newAvatar;
 		}
@@ -58,6 +64,9 @@ public class DialogueManager : MonoBehaviour {
 			lastContentFinished = false;
 			float time = newContent.ToCharArray().Length * 0.065f;
 			content.text = null;
+			if (time == 0) {
+				return;
+			}
 			content.DOText(newContent, time).OnComplete(()=>{
 				lastContentFinished = true;
 			});
@@ -67,6 +76,7 @@ public class DialogueManager : MonoBehaviour {
 			avatar.sprite = null;
 			name.text = "";
 			content.text = "";
+			lastContentFinished = true;
 		}
 
 	}
@@ -113,6 +123,10 @@ public class DialogueManager : MonoBehaviour {
 
 		public string GetNextContent() {
 			return atScriptsEnd ? "" : contents[index];
+		}
+
+		public string GetNextName() {
+			return atScriptsEnd ? "" : names[index];
 		}
 
 		public void Reset() {
@@ -199,7 +213,9 @@ public class DialogueManager : MonoBehaviour {
 	/// 初始化对话树UI，加载头像和名字
 	/// </summary>
 	private void InitDialogue() {
-		Debug.LogError("还未初始化对话树");
+		Debug.LogError("还未初始化头像");
+		dialogueScript.UpdateIndex();
+		dialogueTree.Init(dialogueScript.GetNextName(), dialogueScript.GetNextContent(), null);
 	}
 
 	public void PlayNext() {
@@ -209,6 +225,9 @@ public class DialogueManager : MonoBehaviour {
 		}
 		dialogueScript.UpdateIndex();
 		dialogueTree.ContentChangeTo(dialogueScript.GetNextContent());
+		if (!dialogueScript.isSingleProtagonist) {
+			dialogueTree.NameChangeTo(dialogueScript.GetNextName());
+		}
 	}
 
 	public void ResetAll() {
