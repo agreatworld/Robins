@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SpriteGlow;
+using UnityEngine;
 
 public class MouseEvents : MonoBehaviour {
 
@@ -8,11 +9,13 @@ public class MouseEvents : MonoBehaviour {
 
 	private Material rimLightMaterial;
 
+	private SpriteGlowEffect spriteGlow;
+
 	private void Awake() {
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		originalMaterial = new Material(Shader.Find("Sprites/Default"));
 		rimLightMaterial = Resources.Load<Material>("Material/RimLight");
-
+		spriteGlow = GetComponent<SpriteGlowEffect>();
 	}
 
 
@@ -29,10 +32,12 @@ public class MouseEvents : MonoBehaviour {
 	}
 
 	public void ResetMaterial() {
-		spriteRenderer.material = originalMaterial;
+		//spriteRenderer.material = originalMaterial;
+		spriteGlow.enabled = false;
 	}
 
 	public void HighLightSubMap() {
-		spriteRenderer.material = rimLightMaterial;
+		//spriteRenderer.material = rimLightMaterial;
+		spriteGlow.enabled = true;
 	}
 }
