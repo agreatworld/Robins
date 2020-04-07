@@ -16,6 +16,7 @@ public class DialogueController : MonoBehaviour {
 	private void Awake() {
 		Instance = this;
 		dialogue = transform.Find("Dialogue").gameObject;
+		HideDialogue();
 	}
 
 	public void HideDialogue() {

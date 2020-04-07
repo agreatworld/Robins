@@ -61,7 +61,7 @@ public class GameGuide : MonoBehaviour {
 
 
 	public void LoadGameGuide(string scriptPath) {
-		DialogueManager.Instance.LoadScript(scriptPath);
+		//DialogueManager.Instance.LoadScript(scriptPath);
 		++index;
 		isWaitingForScriptEnding = true;
 	}

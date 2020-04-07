@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Net;
 /// <summary>
 /// 控制对话树的内容
 /// </summary>
@@ -68,8 +69,12 @@ public class DialogueManager : MonoBehaviour {
 				return;
 			}
 			content.DOText(newContent, time).OnComplete(()=>{
-				lastContentFinished = true;
+				Instance.dialogueScript.GetReact()?.Invoke();
 			});
+		}
+
+		public void UpdateStatus() {
+			lastContentFinished = true;
 		}
 
 		public void Reset() {
@@ -99,12 +104,26 @@ public class DialogueManager : MonoBehaviour {
 		/// </summary>
 		private int index = -1;
 
-		public Script(bool isSingleProtagonist, List<string> names, List<string> contents) {
+		/// <summary>
+		/// 控制每一条语句对应的动画交互
+		/// key：语句的索引序列值
+		/// value：对应的动画方法索引值，从0计数，-1表示没有对应的交互
+		/// </summary>
+		public Dictionary<int, int> reactDic = new Dictionary<int, int>();
+
+		/// <summary>
+		/// 存放需要调用的方法
+		/// </summary>
+		private List<AttachToSentence> attachToSentence = new List<AttachToSentence>();
+
+		public Script(bool isSingleProtagonist, List<string> names, List<string> contents, Dictionary<int, int> reactDic, List<AttachToSentence> attachToSentence) {
 			this.isSingleProtagonist = isSingleProtagonist;
 			this.names = names;
 			this.contents = contents;
 			index = -1;
 			atScriptsEnd = false;
+			this.reactDic = reactDic;
+			this.attachToSentence = attachToSentence;
 		}
 
 		/// <summary>
@@ -129,6 +148,11 @@ public class DialogueManager : MonoBehaviour {
 			return atScriptsEnd ? "" : names[index];
 		}
 
+		public AttachToSentence GetReact() {
+			int reactIndex = reactDic[index];
+			return reactIndex == -1 ? null : attachToSentence[reactIndex];
+		}
+
 		public void Reset() {
 			names.Clear();
 			contents.Clear();
@@ -142,6 +166,9 @@ public class DialogueManager : MonoBehaviour {
 	#endregion
 
 	#region field
+	public delegate void AttachToSentence();
+
+
 	public static DialogueManager Instance;
 
 	private DialogueTree dialogueTree;
@@ -178,10 +205,12 @@ public class DialogueManager : MonoBehaviour {
 	public void DialogueHistoryInfoButtonChangeTo(Sprite sprite) {
 		dialogueTree.HistoryInfoButtonChangeTo(sprite);
 	}
-	private void ParseScript(string scriptPath) {
+	private void ParseScript(string scriptPath, List<AttachToSentence> reacts) {
 		bool isSingleProtagonist = false;
 		List<string> names = new List<string>();
 		List<string> contents = new List<string>();
+		Dictionary<int, int> reactDic = new Dictionary<int, int>();
+		int count = 0; // 需要委托方法的数量
 		// 读取剧本
 		try {
 			using (StreamReader sr = new StreamReader(scriptPath)) {
@@ -196,16 +225,27 @@ public class DialogueManager : MonoBehaviour {
 						}
 						continue;
 					}
-					string[] patch = segments[i].Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-					names.Add(patch[0]);
-					contents.Add(patch[1]);
+					// patches[0]存放了对话者的名字，patches[1]存放语句内容
+					string[] patches = segments[i].Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+					names.Add(patches[0]);
+					string[] words = patches[1].Split('*');
+					// words[0]是标志位，定义这一语句是否有伴随交互；words[1]存放具体内容
+					int key = contents.Count, value = -1;
+					if (words.Length == 1) {
+						value = -1;
+						contents.Add(words[0]);
+					} else {
+						value = count++;
+						contents.Add(words[1]);
+					}
+					reactDic.Add(key, value);
 				}
 			}
 		} catch (Exception e) {
 			// 向用户显示出错消息
 			Debug.LogError(e.Message);
 		}
-		dialogueScript = new Script(isSingleProtagonist, names, contents);
+		dialogueScript = new Script(isSingleProtagonist, names, contents, reactDic, reacts);
 		InitDialogue();
 	}
 
@@ -235,10 +275,17 @@ public class DialogueManager : MonoBehaviour {
 		dialogueTree.Reset();
 	}
 
-	public void LoadScript(string scriptPath) {
-		ParseScript(scriptPath);
+	private void LoadScript(string scriptPath, List<AttachToSentence> reacts) {
+		ParseScript(scriptPath, reacts);
 		DialogueController.Instance.ShowDialogue();
+	}
 
+	public void LoadDialogue(string scriptPath, List<AttachToSentence> reacts) {
+		LoadScript(scriptPath, reacts);
+	}
+
+	public void UpdateDialogueStatus() {
+		dialogueTree.UpdateStatus();
 	}
 
 	#endregion
