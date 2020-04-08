@@ -1,4 +1,5 @@
 ﻿using SpriteGlow;
+using TMPro;
 using UnityEngine;
 
 public class MouseEvents : MonoBehaviour {
@@ -8,7 +9,7 @@ public class MouseEvents : MonoBehaviour {
 	private Material originalMaterial;
 
 	private Material rimLightMaterial;
-
+	
 	private SpriteGlowEffect spriteGlow;
 
 	private void Awake() {
@@ -18,14 +19,17 @@ public class MouseEvents : MonoBehaviour {
 		spriteGlow = GetComponent<SpriteGlowEffect>();
 	}
 
-
 	private void OnMouseOver() {
+		if (!MapUIController.Instance.mouseEventsEnabled)
+			return;
 		if (MapUIController.Instance.ShouldReactMaterial()) {
 			HighLightSubMap();
 		}
 	}
 
 	private void OnMouseExit() {
+		if (!MapUIController.Instance.mouseEventsEnabled)
+			return;
 		if (MapUIController.Instance.ShouldReactMaterial()) {
 			ResetMaterial();
 		}
@@ -41,3 +45,4 @@ public class MouseEvents : MonoBehaviour {
 		spriteGlow.enabled = true;
 	}
 }
+

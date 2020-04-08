@@ -18,6 +18,9 @@ public class MapUIController : MonoBehaviour {
 
 	private int subMapCount;
 
+	[HideInInspector]
+	public bool mouseEventsEnabled = true;
+
 	private void Awake() {
 		Instance = this;
 		Transform subMaps = transform.Find("SubMaps");
@@ -35,6 +38,8 @@ public class MapUIController : MonoBehaviour {
 	}
 
 	private void Update() {
+		if (!mouseEventsEnabled)
+			return;
 		if (Input.GetMouseButtonUp(0)) {
 			RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 			if (hitInfo) {
@@ -139,5 +144,12 @@ public class MapUIController : MonoBehaviour {
 		infoArray[showingIndex].animation.mouseInsideRootButton = false;
 	}
 
+	public void DisableAllEvents() {
+		mouseEventsEnabled = false;
+	}
+
+	public void EnableAllEvents() {
+		mouseEventsEnabled = true;
+	}
 
 }

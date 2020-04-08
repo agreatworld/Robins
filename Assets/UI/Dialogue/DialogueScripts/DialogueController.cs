@@ -11,6 +11,7 @@ public class DialogueController : MonoBehaviour {
 
 	public GameObject dialogue;
 
+	[HideInInspector]
 	public bool isDialoguePlaying = false;
 
 	private void Awake() {
@@ -22,10 +23,12 @@ public class DialogueController : MonoBehaviour {
 	public void HideDialogue() {
 		dialogue.SetActive(false);
 		isDialoguePlaying = false;
+		MapUIController.Instance.EnableAllEvents();
 	}
 
 	public void ShowDialogue() {
 		dialogue.SetActive(true);
 		isDialoguePlaying = true;
+		MapUIController.Instance.DisableAllEvents();
 	}
 }

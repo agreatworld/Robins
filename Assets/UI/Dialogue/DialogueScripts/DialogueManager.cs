@@ -63,13 +63,18 @@ public class DialogueManager : MonoBehaviour {
 
 		public void ContentChangeTo(string newContent) {
 			lastContentFinished = false;
-			float time = newContent.ToCharArray().Length * 0.065f;
+			float time = newContent.ToCharArray().Length * 0.05f;
 			content.text = null;
 			if (time == 0) {
 				return;
 			}
 			content.DOText(newContent, time).OnComplete(()=>{
-				Instance.dialogueScript.GetReact()?.Invoke();
+				var method = Instance.dialogueScript.GetReact();
+				if (method != null) {
+					method.Invoke();
+				} else {
+					UpdateStatus();
+				}
 			});
 		}
 

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,50 +22,44 @@ public class GameGuide : MonoBehaviour {
 			if (!DialogueController.Instance.isDialoguePlaying) {
 				isWaitingForScriptEnding = false;
 				// 刚播放完一组剧本
-				string scriptDirectory = "PlotScripts/GameGuide/";
-				string scriptName;
 				switch (index) {
 					case 0:
-						scriptName = "起始引导.txt";
+						LoadGameGuide("PlotScripts/GameGuide/起始引导.txt", null);
 						break;
 					case 1:
-						scriptName = "入住教学.txt";
+						LoadGameGuide("PlotScripts/GameGuide/入住教学.txt", new List<DialogueManager.AttachToSentence>{ 
+							ShowPasser,
+							ClickPasserGuide,
+							ClickSubMapGuide
+						});
 						break;
-					case 2:
-						scriptName = "收取树枝教学.txt";
-						break;
-					case 3:
-						scriptName = "设施建造教学.txt";
-						break;
-					case 4:
-						scriptName = "交配教学.txt";
-						break;
-					case 5:
-						scriptName = "开拓土地教学.txt";
-						break;
-					case 6:
-						scriptName = "迁移教学.txt";
-						break;
-					case 7:
-						scriptName = "商店教学.txt";
-						break;
-					default:
-						scriptName = "小木屋.txt";
-						break;
+					
+					
 				}
-				string scriptPath = scriptDirectory + scriptName;
-				LoadGameGuide(scriptPath);
 			}
 		}
 	}
 
 
-	public void LoadGameGuide(string scriptPath) {
-		//DialogueManager.Instance.LoadScript(scriptPath);
+	public void LoadGameGuide(string scriptPath, List<DialogueManager.AttachToSentence> attachToSentences) {
+		DialogueManager.Instance.LoadDialogue(scriptPath, attachToSentences);
 		++index;
 		isWaitingForScriptEnding = true;
 	}
 
+	#region 入住教学委托
+	private void ShowPasser() {
+		GameObject passer = Resources.Load<GameObject>("GameGuide/Passer");
+		GameObject go =  Instantiate(passer, new Vector2(-7, 0), Quaternion.identity) as GameObject;
+		go.GetComponent<SpriteRenderer>().DOFade(1, 1.2f);
+		DialogueManager.Instance.UpdateDialogueStatus();
+	}
+	private void ClickPasserGuide() {
+		DialogueController.Instance.HideDialogue();
+		Instantiate(Resources.Load<GameObject>("GameGuide/GameGuideMask"));
+	}
+	private void ClickSubMapGuide() {
 
-
+	}
+	#endregion
 }

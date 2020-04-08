@@ -3,7 +3,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class MapUIAnimation : MonoBehaviour, IPointerClickHandler {
+public class MapUIAnimation : MonoBehaviour {
 
 	private RectTransform[] buttonTransforms;
 	private Image[] buttons;
@@ -59,8 +59,6 @@ public class MapUIAnimation : MonoBehaviour, IPointerClickHandler {
 		UpdateAlphas();
 
 	}
-
-
 
 	public void ShowButtons() {
 		buttonsShowing = true;
@@ -126,13 +124,5 @@ public class MapUIAnimation : MonoBehaviour, IPointerClickHandler {
 
 	}
 
-
-	public void OnPointerClick(PointerEventData eventData) {
-		if (buttonsShowing) {
-			HideButtons();
-		} else {
-			ShowButtons();
-		}
-	}
 
 }
