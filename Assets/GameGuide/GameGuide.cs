@@ -6,60 +6,55 @@ public class GameGuide : MonoBehaviour {
 
 	public static GameGuide Instance;
 
-	private bool isWaitingForScriptEnding = false;
-
 	/// <summary>
-	/// 共八个剧本，此索引用于加载所需剧本
+	/// 是否正在进行新手引导
 	/// </summary>
-	private int index = 0;
+	public bool isGameGuiding = true;
 
 	private void Awake() {
 		Instance = this;
 	}
+	private void Start() {
+		LoadGameGuide("PlotScripts/GameGuide/起始引导.txt", new List<DialogueManager.AttachToSentence> {
+			LoadSettleGuide
+		});
 
-	private void Update() {
-		if (isWaitingForScriptEnding) {
-			if (!DialogueController.Instance.isDialoguePlaying) {
-				isWaitingForScriptEnding = false;
-				// 刚播放完一组剧本
-				switch (index) {
-					case 0:
-						LoadGameGuide("PlotScripts/GameGuide/起始引导.txt", null);
-						break;
-					case 1:
-						LoadGameGuide("PlotScripts/GameGuide/入住教学.txt", new List<DialogueManager.AttachToSentence>{ 
-							ShowPasser,
-							ClickPasserGuide,
-							ClickSubMapGuide
-						});
-						break;
-					
-					
-				}
-			}
-		}
 	}
-
 
 	public void LoadGameGuide(string scriptPath, List<DialogueManager.AttachToSentence> attachToSentences) {
 		DialogueManager.Instance.LoadDialogue(scriptPath, attachToSentences);
-		++index;
-		isWaitingForScriptEnding = true;
 	}
+
+	#region 起始引导委托
+	private void LoadSettleGuide() {
+		LoadGameGuide("PlotScripts/GameGuide/入住教学.txt", new List<DialogueManager.AttachToSentence> {
+				ShowPasser,
+				ClickPasserGuide,
+				ClickSubMapGuide
+			});
+	}
+	#endregion
 
 	#region 入住教学委托
 	private void ShowPasser() {
 		GameObject passer = Resources.Load<GameObject>("GameGuide/Passer");
-		GameObject go =  Instantiate(passer, new Vector2(-7, 0), Quaternion.identity) as GameObject;
+		GameObject go = Instantiate(passer, new Vector2(-7, 0), Quaternion.identity) as GameObject;
 		go.GetComponent<SpriteRenderer>().DOFade(1, 1.2f);
 		DialogueManager.Instance.UpdateDialogueStatus();
 	}
 	private void ClickPasserGuide() {
 		DialogueController.Instance.HideDialogue();
-		Instantiate(Resources.Load<GameObject>("GameGuide/GameGuideMask"));
+		GameObject mask = Instantiate(Resources.Load<GameObject>("GameGuide/GameGuideMask")) as GameObject;
+		PasserSettleGuide.Instance.guideMask = mask;
+		// 等待回调方法
 	}
 	private void ClickSubMapGuide() {
-
+		PasserSettleGuide.Instance.getReadyForSettleDown = true;
+		// 等待回调方法，并再其中进行后续工作
 	}
+	#endregion
+
+	#region 收取树枝教学委托
+
 	#endregion
 }

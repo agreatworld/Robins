@@ -2,7 +2,7 @@
 
 public class MapUIController : MonoBehaviour {
 
-	private struct SubMapInfo {
+	public struct SubMapInfo {
 		public GameObject canvas;
 		public MapUIAnimation animation;
 		public MouseEvents mouseEvents;
@@ -150,6 +150,10 @@ public class MapUIController : MonoBehaviour {
 
 	public void EnableAllEvents() {
 		mouseEventsEnabled = true;
+	}
+
+	public SubMapInfo[] GetInfoArray() {
+		return infoArray;
 	}
 
 }

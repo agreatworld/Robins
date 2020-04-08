@@ -44,5 +44,15 @@ public class MouseEvents : MonoBehaviour {
 		//spriteRenderer.material = rimLightMaterial;
 		spriteGlow.enabled = true;
 	}
+
+	private void OnMouseUpAsButton() {
+		if (GameGuide.Instance.isGameGuiding && PasserSettleGuide.Instance.getReadyForSettleDown) {
+			PasserSettleGuide.Instance.ResetAllSubMaps();
+			PasserSettleGuide.Instance.transform.position = transform.position;
+			PasserSettleGuide.Instance.getReadyForSettleDown = false;
+			DialogueManager.Instance.UpdateDialogueStatus();
+			DialogueManager.Instance.PlayNext();
+		}
+	}
 }
 
