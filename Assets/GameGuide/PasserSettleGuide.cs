@@ -22,7 +22,7 @@ public class PasserSettleGuide : MonoBehaviour {
 	private void OnMouseUpAsButton() {
 		if (!clicked) {
 			clicked = true;
-			guideMask.SetActive(false);
+			Destroy(guideMask);
 			HighLightAllSubMaps();
 			DialogueManager.Instance.UpdateDialogueStatus();
 			DialogueController.Instance.ShowDialogue();

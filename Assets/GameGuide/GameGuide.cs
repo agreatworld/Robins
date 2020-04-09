@@ -39,6 +39,7 @@ public class GameGuide : MonoBehaviour {
 	private void ShowPasser() {
 		GameObject passer = Resources.Load<GameObject>("GameGuide/Passer");
 		GameObject go = Instantiate(passer, new Vector2(-7, 0), Quaternion.identity) as GameObject;
+		go.AddComponent<PasserSettleGuide>();
 		go.GetComponent<SpriteRenderer>().DOFade(1, 1.2f);
 		DialogueManager.Instance.UpdateDialogueStatus();
 	}

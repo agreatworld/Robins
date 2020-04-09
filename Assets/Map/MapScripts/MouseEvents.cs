@@ -48,7 +48,8 @@ public class MouseEvents : MonoBehaviour {
 	private void OnMouseUpAsButton() {
 		if (GameGuide.Instance.isGameGuiding && PasserSettleGuide.Instance.getReadyForSettleDown) {
 			PasserSettleGuide.Instance.ResetAllSubMaps();
-			PasserSettleGuide.Instance.transform.position = transform.position;
+			var manager = GetComponent<SubMapManager>();
+			manager.AddNewAves(PasserSettleGuide.Instance.gameObject);
 			PasserSettleGuide.Instance.getReadyForSettleDown = false;
 			DialogueManager.Instance.UpdateDialogueStatus();
 			DialogueManager.Instance.PlayNext();
