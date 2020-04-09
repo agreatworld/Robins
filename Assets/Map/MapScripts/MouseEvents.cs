@@ -1,5 +1,6 @@
 ﻿using SpriteGlow;
 using TMPro;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class MouseEvents : MonoBehaviour {
@@ -50,6 +51,8 @@ public class MouseEvents : MonoBehaviour {
 			PasserSettleGuide.Instance.ResetAllSubMaps();
 			var manager = GetComponent<SubMapManager>();
 			manager.AddNewAves(PasserSettleGuide.Instance.gameObject);
+			manager.AddBranchEventsForGuide();
+			gameObject.AddComponent<CollectBranchesGuide>();
 			PasserSettleGuide.Instance.getReadyForSettleDown = false;
 			DialogueManager.Instance.UpdateDialogueStatus();
 			DialogueManager.Instance.PlayNext();

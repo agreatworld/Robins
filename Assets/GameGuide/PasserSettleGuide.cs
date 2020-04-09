@@ -7,9 +7,6 @@ public class PasserSettleGuide : MonoBehaviour {
 	private bool clicked = false;
 
 	[HideInInspector]
-	public GameObject guideMask;
-
-	[HideInInspector]
 	public static PasserSettleGuide Instance;
 
 	[HideInInspector]
@@ -22,7 +19,8 @@ public class PasserSettleGuide : MonoBehaviour {
 	private void OnMouseUpAsButton() {
 		if (!clicked) {
 			clicked = true;
-			Destroy(guideMask);
+			GameGuide.Instance.guideMask.SetActive(false);
+			GetComponent<SpriteRenderer>().sortingOrder = 3;
 			HighLightAllSubMaps();
 			DialogueManager.Instance.UpdateDialogueStatus();
 			DialogueController.Instance.ShowDialogue();

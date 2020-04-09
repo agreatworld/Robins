@@ -6,6 +6,9 @@ public class GameGuide : MonoBehaviour {
 
 	public static GameGuide Instance;
 
+	[HideInInspector]
+	public GameObject guideMask;
+
 	/// <summary>
 	/// 是否正在进行新手引导
 	/// </summary>
@@ -37,16 +40,16 @@ public class GameGuide : MonoBehaviour {
 
 	#region 入住教学委托
 	private void ShowPasser() {
-		GameObject passer = Resources.Load<GameObject>("GameGuide/Passer");
+		GameObject passer = Resources.Load<GameObject>("Aves/Passer");
 		GameObject go = Instantiate(passer, new Vector2(-7, 0), Quaternion.identity) as GameObject;
+		go.GetComponent<SpriteRenderer>().sortingOrder = 101;
 		go.AddComponent<PasserSettleGuide>();
 		go.GetComponent<SpriteRenderer>().DOFade(1, 1.2f);
 		DialogueManager.Instance.UpdateDialogueStatus();
 	}
 	private void ClickPasserGuide() {
 		DialogueController.Instance.HideDialogue();
-		GameObject mask = Instantiate(Resources.Load<GameObject>("GameGuide/GameGuideMask")) as GameObject;
-		PasserSettleGuide.Instance.guideMask = mask;
+		guideMask = Instantiate(Resources.Load<GameObject>("GameGuide/GameGuideMask")) as GameObject;
 		// 等待回调方法
 	}
 	private void ClickSubMapGuide() {
@@ -55,7 +58,4 @@ public class GameGuide : MonoBehaviour {
 	}
 	#endregion
 
-	#region 收取树枝教学委托
-
-	#endregion
 }

@@ -8,6 +8,12 @@ public class SubMapManager : MonoBehaviour {
 	private List<GameObject> avesSettled = new List<GameObject>();
 
 	/// <summary>
+	/// 树枝
+	/// </summary>
+	private GameObject branch;
+
+	[HideInInspector]
+	/// <summary>
 	/// 地块唯一标识，一块地只能有一种鸟，暂用string标识，考虑改为枚举
 	/// </summary>
 	public string avesFlag;
@@ -19,13 +25,14 @@ public class SubMapManager : MonoBehaviour {
 
 	[SerializeField]
 	private float manufactureBranchesTimeThreshold = 10f;
-
 	#endregion
 
 
 	#region monobehaviour
 	private void Awake() {
-
+		branch = Resources.Load<GameObject>("Branch");
+		branch = Instantiate(branch, transform.position + new Vector3(0.3f, 0, 0), Quaternion.identity) as GameObject;
+		branch.SetActive(false);
 	}
 
 	private void Update() {
@@ -35,6 +42,11 @@ public class SubMapManager : MonoBehaviour {
 
 	#region private methods
 	private void ManufactureBranches() {
+		if (GameGuide.Instance.isGameGuiding) {
+			if (avesSettled.Count > 0) {
+				// 新手引导期间只产生一此树枝
+			}
+		}
 		if (avesSettled.Count == 0) {
 			// 没有已入住鸟类，无树枝产出
 			return;
@@ -46,8 +58,15 @@ public class SubMapManager : MonoBehaviour {
 		}
 		manufactureBranchesTimer = 0;
 		// 根据入住鸟类数量、当地建筑设施等产出树枝
-		int count = avesSettled.Count;
-		Debug.Log("产出树枝" + count);
+		int avesCount = avesSettled.Count;
+		int branchCount = 1;
+		if (branch.activeSelf) {
+			branch.GetComponent<Branch>().AddCount(branchCount);
+		} else {
+			branch.SetActive(true);
+			branch.GetComponent<Branch>().AddCount(branchCount);
+		}
+
 	}
 	#endregion
 
@@ -67,6 +86,10 @@ public class SubMapManager : MonoBehaviour {
 		}
 		avesSettled.Add(newAves);
 		newAves.transform.position = transform.position;
+	}
+
+	public void AddBranchEventsForGuide() {
+		branch.AddComponent<BranchEventsForGuide>();
 	}
 
 	#endregion
