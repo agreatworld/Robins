@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ConstructButtonEventsConstructGuide : MonoBehaviour {
-
-
-	private void OnMouseUpAsButton() {
+public class ConstructButtonEventsConstructGuide : MonoBehaviour, IPointerClickHandler {
+	public void OnPointerClick(PointerEventData eventData) {
 		GameGuide.Instance.guideMask.SetActive(false);
-
-		Destroy(gameObject);
+		Destroy(transform.Find("ButtonCopied(Clone)").gameObject);
+		Destroy(this);
 	}
+
 
 }

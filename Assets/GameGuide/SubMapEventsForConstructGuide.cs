@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class SubMapEventsForConstructGuide : MonoBehaviour {
 
+	private bool clicked = false;
+
 	private void OnMouseUpAsButton() {
+		if (clicked)
+			return;
+		clicked = true;
 		GameGuide.Instance.guideMask.SetActive(false);
 		GetComponent<SpriteRenderer>().sortingOrder = 1;
 		MapUIController.Instance.ClickSubMap();
@@ -13,10 +18,10 @@ public class SubMapEventsForConstructGuide : MonoBehaviour {
 
 	private void ClickConstructButtonGuide() {
 		GameObject constructButton = transform.Find("Canvas").Find("MapButtonsHolder").Find("ConstructButton").gameObject;
-		GameObject buttonCopied = Instantiate(Resources.Load<GameObject>("GameGuide/ButtonCopied"), constructButton.transform.position, Quaternion.identity) as GameObject;
-		buttonCopied.GetComponent<SpriteRenderer>().sortingOrder = 101;
+		// 实例化一个副本只为UI显示，无任何作用
+		GameObject buttonCopied = Instantiate(Resources.Load<GameObject>("GameGuide/ButtonCopied"), constructButton.transform.position, Quaternion.identity, constructButton.transform) as GameObject;
 		GameGuide.Instance.guideMask.SetActive(true);
-		buttonCopied.AddComponent<ConstructButtonEventsConstructGuide>();
+		constructButton.AddComponent<ConstructButtonEventsConstructGuide>();
 	}
 
 }
