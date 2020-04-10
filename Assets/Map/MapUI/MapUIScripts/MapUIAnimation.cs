@@ -30,6 +30,7 @@ public class MapUIAnimation : MonoBehaviour {
 	public bool rootShowing = false;
 	[HideInInspector]
 	public bool mouseInsideRootButton = false;
+
 	private void Awake() {
 		// 初始化字段
 		var transforms = GetComponentsInChildren<RectTransform>(); // 返回的第一个物体是根物体，所以需要处理一下

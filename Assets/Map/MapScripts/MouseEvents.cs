@@ -18,6 +18,7 @@ public class MouseEvents : MonoBehaviour {
 		originalMaterial = new Material(Shader.Find("Sprites/Default"));
 		rimLightMaterial = Resources.Load<Material>("Material/RimLight");
 		spriteGlow = GetComponent<SpriteGlowEffect>();
+		ResetMaterial();
 	}
 
 	private void OnMouseOver() {
@@ -37,11 +38,12 @@ public class MouseEvents : MonoBehaviour {
 	}
 
 	public void ResetMaterial() {
-		//spriteRenderer.material = originalMaterial;
+		spriteRenderer.material = originalMaterial;
 		spriteGlow.enabled = false;
 	}
 
 	public void HighLightSubMap() {
+		Debug.Log(MapUIController.Instance.mouseEventsEnabled);
 		//spriteRenderer.material = rimLightMaterial;
 		spriteGlow.enabled = true;
 	}

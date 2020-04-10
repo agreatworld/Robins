@@ -14,6 +14,11 @@ public class GameGuide : MonoBehaviour {
 	/// </summary>
 	public bool isGameGuiding = true;
 
+	/// <summary>
+	/// 新手引导期间是否启用鼠标对地图的事件
+	/// </summary>
+	public bool enableMouseEvents = false;
+
 	private void Awake() {
 		Instance = this;
 	}

@@ -8,6 +8,7 @@ namespace SpriteGlow {
 	[AddComponentMenu("Effects/Sprite Glow")]
 	[RequireComponent(typeof(SpriteRenderer)), DisallowMultipleComponent, ExecuteInEditMode]
 	public class SpriteGlowEffect : MonoBehaviour {
+
 		public SpriteRenderer Renderer {
 			get; private set;
 		}
@@ -96,6 +97,7 @@ namespace SpriteGlow {
 
 		private void OnDisable() {
 			SetMaterialProperties();
+
 		}
 
 		private void OnValidate() {

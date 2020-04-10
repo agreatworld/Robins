@@ -7,10 +7,11 @@ public class SubMapManager : MonoBehaviour {
 	#region field
 	private List<GameObject> avesSettled = new List<GameObject>();
 
+	[HideInInspector]
 	/// <summary>
 	/// 树枝
 	/// </summary>
-	private GameObject branch;
+	public GameObject branch;
 
 	[HideInInspector]
 	/// <summary>
@@ -31,7 +32,7 @@ public class SubMapManager : MonoBehaviour {
 	#region monobehaviour
 	private void Awake() {
 		branch = Resources.Load<GameObject>("Branch");
-		branch = Instantiate(branch, transform.position + new Vector3(0.3f, 0, 0), Quaternion.identity) as GameObject;
+		branch = transform.Find("Branch").gameObject;
 		branch.SetActive(false);
 	}
 

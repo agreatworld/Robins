@@ -23,7 +23,11 @@ public class DialogueController : MonoBehaviour {
 	public void HideDialogue() {
 		dialogue.SetActive(false);
 		isDialoguePlaying = false;
-		if (!GameGuide.Instance.isGameGuiding) {
+		if (GameGuide.Instance.isGameGuiding) {
+			if (GameGuide.Instance.enableMouseEvents) {
+				MapUIController.Instance.EnableAllEvents();
+			}
+		} else {
 			MapUIController.Instance.EnableAllEvents();
 		}
 	}

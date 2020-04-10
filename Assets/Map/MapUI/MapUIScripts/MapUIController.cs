@@ -21,8 +21,14 @@ public class MapUIController : MonoBehaviour {
 	[HideInInspector]
 	public bool mouseEventsEnabled = true;
 
+	/// <summary>
+	/// 土地附属信息
+	/// </summary>
+	private GameObject subMapInfoUI;
+
 	private void Awake() {
 		Instance = this;
+		subMapInfoUI = GameObject.Find("CanvasHolder").transform.Find("AttachmentsCanvas").Find("SubMapInfo").gameObject;
 		Transform subMaps = transform.Find("SubMaps");
 		infoArray = new SubMapInfo[subMaps.childCount];
 		subMapCount = subMaps.childCount;
@@ -41,38 +47,41 @@ public class MapUIController : MonoBehaviour {
 		if (!mouseEventsEnabled)
 			return;
 		if (Input.GetMouseButtonUp(0)) {
-			RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-			if (hitInfo) {
-				string hitName = hitInfo.collider.name;
-				int hitIndex = -1;
-				if (int.TryParse(hitName, out hitIndex)) {
-					if (showingIndex == -1) {
-						// -1表示当前没有显示的按钮
-						int index = -1;
-						if (int.TryParse(hitName, out index)) {
-							if (index > -1 && index < subMapCount) {
-								ShowAll(index);
-								return;
-							}
-						}
-					}
-					if (hitIndex != showingIndex) {
-						HideAll(showingIndex);
-					} else {
-						ShowButtons();
-					}
-				}
-			} else if (showingIndex != -1) {
-				if (infoArray[showingIndex].animation.mouseInsideRootButton) {
-					HideButtons(showingIndex);
-				} else {
-					HideAll(showingIndex);
-				}
-			}
+			ClickSubMap();
 		}
 
 	}
 
+	public void ClickSubMap() {
+		RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+		if (hitInfo) {
+			string hitName = hitInfo.collider.name;
+			int hitIndex = -1;
+			if (int.TryParse(hitName, out hitIndex)) {
+				if (showingIndex == -1) {
+					// -1表示当前没有显示的按钮
+					int index = -1;
+					if (int.TryParse(hitName, out index)) {
+						if (index > -1 && index < subMapCount) {
+							ShowAll(index);
+							return;
+						}
+					}
+				}
+				if (hitIndex != showingIndex) {
+					HideAll(showingIndex);
+				} else {
+					ShowButtons();
+				}
+			}
+		} else if (showingIndex != -1) {
+			if (infoArray[showingIndex].animation.mouseInsideRootButton) {
+				HideButtons(showingIndex);
+			} else {
+				HideAll(showingIndex);
+			}
+		}
+	}
 
 	public void ShowButtons() {
 		if (infoArray[showingIndex].animation.mouseInsideRootButton) {
@@ -89,6 +98,13 @@ public class MapUIController : MonoBehaviour {
 		infoArray[index].animation.rootShowing = true;
 		infoArray[index].animation.buttonsShowing = true;
 		infoArray[index].animation.ShowAll();
+		ShowSubMapInfoUI();
+	}
+
+	public void ShowSubMapInfoUI() {
+		// 显示子地图信息面板
+		SubMapAttachmentUI.Instance.gameObject.SetActive(true);
+		SubMapAttachmentUI.Instance.UpdateInfo();
 	}
 
 	public void HideButtons(int index) {
@@ -108,6 +124,12 @@ public class MapUIController : MonoBehaviour {
 		infoArray[index].animation.HideAll();
 		Invoke("FalseCanvas", 0.5f);
 		infoArray[index].mouseEvents.ResetMaterial();
+		HideSubMapInfoUI();
+	}
+
+	public void HideSubMapInfoUI() {
+		// 隐藏子地图信息面板
+		SubMapAttachmentUI.Instance.gameObject.SetActive(false);
 	}
 
 	/// <summary>

@@ -26,7 +26,8 @@ public class CollectBranchesGuide : MonoBehaviour {
 			if (timer > timeThreshold) {
 				guideLoaded = true;
 				GameGuide.Instance.LoadGameGuide("PlotScripts/GameGuide/收取树枝教学.txt", new List<DialogueManager.AttachToSentence> {
-					ClickBranchGuide
+					ClickBranchGuide,
+					LoadConstructGuide
 				});
 			}
 		}
@@ -34,6 +35,36 @@ public class CollectBranchesGuide : MonoBehaviour {
 
 	private void ClickBranchGuide() {
 		GameGuide.Instance.guideMask.SetActive(true);
+		GetComponent<SubMapManager>().branch.GetComponent<SpriteRenderer>().sortingOrder = 101;
 		DialogueController.Instance.HideDialogue();
+	}
+
+	private void LoadConstructGuide() {
+		GameGuide.Instance.LoadGameGuide("PlotScripts/GameGuide/设施建造教学.txt", new List<DialogueManager.AttachToSentence> {
+			ClickSubMapGuide,
+			ShowConstructorsCard,
+			ClickConstructorCardGuide,
+			DragCardGuide
+		});
+	}
+
+	private void ClickSubMapGuide() {
+		GameGuide.Instance.guideMask.SetActive(true);
+		DialogueController.Instance.HideDialogue();
+		GetComponent<SpriteRenderer>().sortingOrder = 101;
+		MapUIController.Instance.EnableShowingSubMapEvent();
+		gameObject.AddComponent<SubMapEventsForConstructGuide>();
+	}
+
+	private void ShowConstructorsCard() {
+
+	}
+
+	private void ClickConstructorCardGuide() {
+
+	}
+
+	private void DragCardGuide() {
+
 	}
 }
