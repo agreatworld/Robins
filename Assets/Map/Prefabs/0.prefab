@@ -423,6 +423,7 @@ GameObject:
   - component: {fileID: 1819799642950444505}
   - component: {fileID: 3348904603508848688}
   - component: {fileID: 5262560941714178843}
+  - component: {fileID: 1871202487905222717}
   m_Layer: 0
   m_Name: FeedButton
   m_TagString: Untagged
@@ -512,6 +513,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1871202487905222717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819799642950444507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4565b135210334c9a9186584a04ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1819799643674175946
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,6 +538,7 @@ GameObject:
   - component: {fileID: 1819799643674175944}
   - component: {fileID: 8726399907581685161}
   - component: {fileID: 966926455561569936}
+  - component: {fileID: 5544278834822202551}
   m_Layer: 0
   m_Name: ChangeTypesButton
   m_TagString: Untagged
@@ -614,6 +628,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &5544278834822202551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819799643674175946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4565b135210334c9a9186584a04ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1819799643935452792
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,6 +752,7 @@ GameObject:
   - component: {fileID: 1819799643987747306}
   - component: {fileID: 6432423621888217017}
   - component: {fileID: 519057240444490239}
+  - component: {fileID: 8016110180829724177}
   m_Layer: 0
   m_Name: ConstructButton
   m_TagString: Untagged
@@ -815,6 +842,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &8016110180829724177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819799643987747308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4565b135210334c9a9186584a04ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4871505941578368388
 PrefabInstance:
   m_ObjectHideFlags: 0

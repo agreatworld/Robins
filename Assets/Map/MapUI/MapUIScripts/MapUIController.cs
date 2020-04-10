@@ -125,6 +125,11 @@ public class MapUIController : MonoBehaviour {
 		Invoke("FalseCanvas", 0.5f);
 		infoArray[index].mouseEvents.ResetMaterial();
 		HideSubMapInfoUI();
+		HideBagPreviewWindow();
+	}
+
+	public void HideBagPreviewWindow() {
+		BagPreviewWindow.Instance.gameObject.SetActive(false);
 	}
 
 	public void HideSubMapInfoUI() {
