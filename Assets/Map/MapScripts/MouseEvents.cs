@@ -43,7 +43,6 @@ public class MouseEvents : MonoBehaviour {
 	}
 
 	public void HighLightSubMap() {
-		Debug.Log(MapUIController.Instance.mouseEventsEnabled);
 		//spriteRenderer.material = rimLightMaterial;
 		spriteGlow.enabled = true;
 	}

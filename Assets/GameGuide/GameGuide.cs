@@ -9,11 +9,13 @@ public class GameGuide : MonoBehaviour {
 	[HideInInspector]
 	public GameObject guideMask;
 
+	[HideInInspector]
 	/// <summary>
 	/// 是否正在进行新手引导
 	/// </summary>
 	public bool isGameGuiding = true;
 
+	[HideInInspector]
 	/// <summary>
 	/// 新手引导期间是否启用鼠标对地图的事件
 	/// </summary>
