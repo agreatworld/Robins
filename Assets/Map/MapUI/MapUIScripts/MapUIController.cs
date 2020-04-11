@@ -21,14 +21,8 @@ public class MapUIController : MonoBehaviour {
 	[HideInInspector]
 	public bool mouseEventsEnabled = true;
 
-	/// <summary>
-	/// 土地附属信息
-	/// </summary>
-	private GameObject subMapInfoUI;
-
 	private void Awake() {
 		Instance = this;
-		subMapInfoUI = GameObject.Find("CanvasHolder").transform.Find("AttachmentsCanvas").Find("SubMapInfo").gameObject;
 		Transform subMaps = transform.Find("SubMaps");
 		infoArray = new SubMapInfo[subMaps.childCount];
 		subMapCount = subMaps.childCount;

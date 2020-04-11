@@ -10,6 +10,7 @@ public class SubMapEventsForConstructGuide : MonoBehaviour {
 		if (clicked)
 			return;
 		clicked = true;
+		MapUIController.Instance.EnableAllEvents();
 		GameGuide.Instance.guideMask.SetActive(false);
 		GetComponent<SpriteRenderer>().sortingOrder = 1;
 		MapUIController.Instance.ClickSubMap();

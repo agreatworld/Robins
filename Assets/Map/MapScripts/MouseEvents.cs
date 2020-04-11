@@ -1,13 +1,11 @@
 ﻿using SpriteGlow;
-using TMPro;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class MouseEvents : MonoBehaviour {
 
 	private SpriteRenderer spriteRenderer;
 
-	private Material originalMaterial;
+	private Material defaultMaterial;
 
 	private Material rimLightMaterial;
 	
@@ -15,7 +13,7 @@ public class MouseEvents : MonoBehaviour {
 
 	private void Awake() {
 		spriteRenderer = GetComponent<SpriteRenderer>();
-		originalMaterial = new Material(Shader.Find("Sprites/Default"));
+		defaultMaterial = new Material(Shader.Find("Sprites/Default"));
 		rimLightMaterial = Resources.Load<Material>("Material/RimLight");
 		spriteGlow = GetComponent<SpriteGlowEffect>();
 		ResetMaterial();
@@ -38,7 +36,7 @@ public class MouseEvents : MonoBehaviour {
 	}
 
 	public void ResetMaterial() {
-		spriteRenderer.material = originalMaterial;
+		spriteRenderer.material = defaultMaterial;
 		spriteGlow.enabled = false;
 	}
 
@@ -48,7 +46,7 @@ public class MouseEvents : MonoBehaviour {
 	}
 
 	private void OnMouseUpAsButton() {
-		if (GameGuide.Instance.isGameGuiding && PasserSettleGuide.Instance.getReadyForSettleDown) {
+		if (GameGuide.Instance.isGameGuiding && PasserSettleGuide.Instance && PasserSettleGuide.Instance.getReadyForSettleDown) {
 			PasserSettleGuide.Instance.ResetAllSubMaps();
 			var manager = GetComponent<SubMapManager>();
 			manager.AddNewAves(PasserSettleGuide.Instance.gameObject);

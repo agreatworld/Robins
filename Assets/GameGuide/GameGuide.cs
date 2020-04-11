@@ -63,6 +63,7 @@ public class GameGuide : MonoBehaviour {
 		PasserSettleGuide.Instance.getReadyForSettleDown = true;
 		// 等待回调方法，并再其中进行后续工作
 	}
+
 	#endregion
 
 }
