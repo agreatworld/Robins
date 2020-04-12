@@ -10,8 +10,8 @@ public class BagPreviewButtonClickEvents : MonoBehaviour, IPointerClickHandler, 
 		image = GetComponent<Image>();
 	}
 	public void OnPointerClick(PointerEventData eventData) {
-		BagPreviewWindowTabs.Instance.ClickTab(image);
-
+		BagPreviewWindowTabs.Instance.ClickTab(transform.GetSiblingIndex());
+		Debug.Log("Show " + transform.name);
 	}
 
 	public void OnPointerDown(PointerEventData eventData) {

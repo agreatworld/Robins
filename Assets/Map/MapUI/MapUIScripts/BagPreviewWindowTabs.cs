@@ -9,24 +9,33 @@ public class BagPreviewWindowTabs : MonoBehaviour {
 
 	private Image[] tabs;
 
-	private Image showingTab;
+	private int showingIndex;
 
 	private Vector3 showingVector = new Vector3(0, 0, 30);
+
+	private GameObject[] scrollViewContents = new GameObject[3];
 
 	private void Awake() {
 		Instance = this;
 		tabs = GetComponentsInChildren<Image>();
-		showingTab = tabs[0];
-		ClickTab(tabs[0]);
+		GameObject viewport = transform.parent.Find("ScrollView").Find("Viewport").gameObject;
+		scrollViewContents[0] = viewport.transform.GetChild(0).gameObject;
+		scrollViewContents[1] = viewport.transform.GetChild(1).gameObject;
+		scrollViewContents[2] = viewport.transform.GetChild(2).gameObject;
+
+		showingIndex = 0;
+		ClickTab(showingIndex);
 	}
 
-	public void ClickTab(Image tab) {
-		HideTab(showingTab);
-		showingTab = tab;
-		tab.transform.Rotate(showingVector);
+	public void ClickTab(int index) {
+		HideTab(showingIndex);
+		showingIndex = index;
+		tabs[index].transform.Rotate(showingVector);
+		scrollViewContents[index].SetActive(true);
 	}
-	private void HideTab(Image tab) {
-		tab.transform.rotation = Quaternion.identity;
+	private void HideTab(int index) {
+		tabs[index].transform.rotation = Quaternion.identity;
+		scrollViewContents[index].SetActive(false);
 	}
 
 }
