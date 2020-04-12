@@ -14,7 +14,7 @@ public class AttachmentsMouseEvents : MonoBehaviour, IPointerEnterHandler, IPoin
 	private Vector2 mouseWorldPositionLastFrame;
 
 	private void Start() {
-		gameObject.SetActive(false);
+		//gameObject.SetActive(false);
 	}
 
 	private void Update() {
