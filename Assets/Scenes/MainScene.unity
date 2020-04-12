@@ -7659,7 +7659,7 @@ GameObject:
   - component: {fileID: 566375134}
   - component: {fileID: 566375133}
   m_Layer: 0
-  m_Name: Scroll View
+  m_Name: ScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
