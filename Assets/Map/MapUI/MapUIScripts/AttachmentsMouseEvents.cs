@@ -51,6 +51,7 @@ public class AttachmentsMouseEvents : MonoBehaviour, IPointerEnterHandler, IPoin
 	}
 
 	public void OnPointerClick(PointerEventData eventData) {
-		transform.SetSiblingIndex(transform.parent.childCount - 1);
+		transform.SetAsLastSibling();
 	}
+
 }

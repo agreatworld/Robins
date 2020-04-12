@@ -9,4 +9,8 @@ public class BagPreviewWindow : MonoBehaviour {
 	private void Awake() {
 		Instance = this;
 	}
+
+	public void ShowConstructPanel() {
+		Debug.Log("显示建造面板");
+	}
 }

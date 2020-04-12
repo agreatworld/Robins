@@ -57,7 +57,9 @@ public class CollectBranchesGuide : MonoBehaviour {
 	}
 
 	private void ShowConstructorsCard() {
-
+		BagPreviewWindow.Instance.transform.SetAsLastSibling();
+		BagPreviewWindow.Instance.ShowConstructPanel();
+		DialogueManager.Instance.UpdateDialogueStatus();
 	}
 
 	private void ClickConstructorCardGuide() {
