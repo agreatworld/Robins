@@ -10,7 +10,6 @@ public class SubMapEventsForConstructGuide : MonoBehaviour {
 		if (clicked)
 			return;
 		clicked = true;
-		MapUIController.Instance.EnableAllEvents();
 		GameGuide.Instance.guideMask.SetActive(false);
 		GetComponent<SpriteRenderer>().sortingOrder = 1;
 		MapUIController.Instance.ClickSubMap();
@@ -23,6 +22,7 @@ public class SubMapEventsForConstructGuide : MonoBehaviour {
 		GameObject buttonCopied = Instantiate(Resources.Load<GameObject>("GameGuide/ButtonCopied"), constructButton.transform.position, Quaternion.identity, constructButton.transform) as GameObject;
 		GameGuide.Instance.guideMask.SetActive(true);
 		constructButton.AddComponent<ConstructButtonEventsConstructGuide>();
+		Destroy(this);
 	}
 
 }

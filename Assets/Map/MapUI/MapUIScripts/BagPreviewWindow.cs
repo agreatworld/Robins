@@ -11,6 +11,6 @@ public class BagPreviewWindow : MonoBehaviour {
 	}
 
 	public void ShowConstructPanel() {
-		Debug.Log("显示建造面板");
+		BagPreviewWindowTabs.Instance.ClickTab(0);
 	}
 }

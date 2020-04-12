@@ -52,15 +52,13 @@ public class CollectBranchesGuide : MonoBehaviour {
 		GameGuide.Instance.guideMask.SetActive(true);
 		DialogueController.Instance.HideDialogue();
 		GetComponent<SpriteRenderer>().sortingOrder = 101;
-		MapUIController.Instance.EnableShowingSubMapEvent();
 		gameObject.AddComponent<SubMapEventsForConstructGuide>();
 	}
 
 	private void ShowConstructorsCard() {
-		BagPreviewWindow.Instance.transform.SetAsLastSibling();
-		BagPreviewWindow.Instance.ShowConstructPanel();
+		BagPreviewWindowTabs.Instance.ClickTab(0);
 		DialogueManager.Instance.UpdateDialogueStatus();
-
+		DialogueManager.Instance.PlayNext();
 	}
 
 	private void ClickConstructorCardGuide() {

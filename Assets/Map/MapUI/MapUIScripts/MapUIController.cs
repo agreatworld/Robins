@@ -38,6 +38,7 @@ public class MapUIController : MonoBehaviour {
 	}
 
 	private void Update() {
+		Debug.Log(mouseEventsEnabled);
 		if (!mouseEventsEnabled)
 			return;
 		if (Input.GetMouseButtonUp(0)) {

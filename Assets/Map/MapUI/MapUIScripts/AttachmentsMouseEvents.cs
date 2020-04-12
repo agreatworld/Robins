@@ -14,7 +14,7 @@ public class AttachmentsMouseEvents : MonoBehaviour, IPointerEnterHandler, IPoin
 	private Vector2 mouseWorldPositionLastFrame;
 
 	private void Start() {
-		//gameObject.SetActive(false);
+		gameObject.SetActive(false);
 	}
 
 	private void Update() {
@@ -37,6 +37,8 @@ public class AttachmentsMouseEvents : MonoBehaviour, IPointerEnterHandler, IPoin
 
 	public void OnPointerExit(PointerEventData eventData) {
 		// 鼠标移出后启用鼠标对地图的事件
+		if (GameGuide.Instance.isGameGuiding)
+			return;
 		MapUIController.Instance.EnableAllEvents();
 	}
 
