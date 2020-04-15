@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class SubMapManager : MonoBehaviour {
 
+	#region internal structrue
+	private struct Construction {
+		public GameObject establishment;
+		public int rank;
+	}
+	#endregion
+
 	#region field
 	private List<GameObject> avesSettled = new List<GameObject>();
 
@@ -26,7 +33,10 @@ public class SubMapManager : MonoBehaviour {
 
 	[SerializeField]
 	private float manufactureBranchesTimeThreshold = 10f;
+
+	private Construction construction;
 	#endregion
+
 
 
 	#region monobehaviour
@@ -96,8 +106,11 @@ public class SubMapManager : MonoBehaviour {
 	/// <summary>
 	/// 设施建造
 	/// </summary>
-	public void Construct() {
-
+	public void Construct(GameObject establishment, int rank) {
+		construction.establishment = establishment;
+		construction.rank = rank;
+		construction.establishment.transform.parent = transform;
+		construction.establishment.transform.localPosition = Vector2.zero;
 	}
 
 	#endregion

@@ -13,4 +13,8 @@ public class BagPreviewWindow : MonoBehaviour {
 	public void ShowConstructPanel() {
 		BagPreviewWindowTabs.Instance.ClickTab(0);
 	}
+	public void Hide() {
+		gameObject.SetActive(false);
+		MapUIController.Instance.EnableAllEvents();
+	}
 }

@@ -11,15 +11,26 @@ public class MouseEvents : MonoBehaviour {
 	
 	private SpriteGlowEffect spriteGlow;
 
+	private SubMapManager subMapManager;
+
 	private void Awake() {
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		defaultMaterial = new Material(Shader.Find("Sprites/Default"));
 		rimLightMaterial = Resources.Load<Material>("Material/RimLight");
 		spriteGlow = GetComponent<SpriteGlowEffect>();
 		ResetMaterial();
+		subMapManager = GetComponent<SubMapManager>();
+	}
+
+
+	private void HandleDragging() {
+		if (DragCardManager.Instance.isDragging && Input.GetMouseButtonUp(0) && MapUIController.Instance.showingIndex.ToString() == transform.name) {
+			subMapManager.Construct(DragCardManager.Instance.GetCard(), DragCardManager.Instance.GetCardRank());
+		}
 	}
 
 	private void OnMouseOver() {
+		HandleDragging();
 		if (!MapUIController.Instance.mouseEventsEnabled)
 			return;
 		if (MapUIController.Instance.ShouldReactMaterial()) {
@@ -35,11 +46,6 @@ public class MouseEvents : MonoBehaviour {
 		}
 	}
 
-	private void OnMouseEnter() {
-		if (DragCardManager.Instance.isDragging) {
-
-		}
-	}
 
 	public void ResetMaterial() {
 		spriteRenderer.material = defaultMaterial;

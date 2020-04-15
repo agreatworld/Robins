@@ -10,4 +10,5 @@ public class ConstructCard : Card {
 	protected override void Update() {
 		base.Update();
 	}
+	
 }

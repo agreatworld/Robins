@@ -19,7 +19,7 @@ public class DragCardManager : MonoBehaviour {
 		var sprite = new GameObject();
 		sprite.AddComponent<SpriteRenderer>();
 		cover = sprite.GetComponent<SpriteRenderer>();
-		cover.sortingOrder = 4;
+		cover.sortingOrder = 20;
 	}
 
 	private void Update() {
@@ -46,5 +46,14 @@ public class DragCardManager : MonoBehaviour {
 		isDragging = false;
 		cover.gameObject.SetActive(false);
 		MapUIController.Instance.DisableAllEvents();
+	}
+	public GameObject GetCard() {
+		var card = Instantiate(cover.gameObject) as GameObject;
+		return card;
+	}
+
+	public int GetCardRank() {
+		Debug.Log("卡牌等级加载，暂默认为1");
+		return 1;
 	}
 }

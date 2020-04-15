@@ -23,6 +23,8 @@ public class GameGuide : MonoBehaviour {
 
 	private void Awake() {
 		Instance = this;
+		this.enabled = false;
+		isGameGuiding = false;
 	}
 	private void Start() {
 		LoadGameGuide("PlotScripts/GameGuide/起始引导.txt", new List<DialogueManager.AttachToSentence> {
