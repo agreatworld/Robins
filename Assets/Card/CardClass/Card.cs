@@ -37,6 +37,9 @@ public abstract class Card : MonoBehaviour, IPointerClickHandler, IPointerDownHa
 	}
 
 	public void OnPointerClick(PointerEventData eventData) {
+		if (GameGuide.Instance.isGameGuiding) {
+			DialogueController.Instance.HideDialogue();
+		}
 		BagPreviewCardDetails.Instance.ChangeSprite(cardDetails);
 		BagPreviewCardDetails.Instance.Show();
 	}
@@ -50,6 +53,9 @@ public abstract class Card : MonoBehaviour, IPointerClickHandler, IPointerDownHa
 
 
 	private void HandleCardDragging() {
+		if (Input.GetMouseButtonUp(0)) {
+			preDragging = false;
+		}
 		if (preDragging) {
 			Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			if (Vector2.Distance(mousePosition, startDraggingPos) > preDraggingThreshold) {

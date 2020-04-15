@@ -23,8 +23,6 @@ public class GameGuide : MonoBehaviour {
 
 	private void Awake() {
 		Instance = this;
-		this.enabled = false;
-		isGameGuiding = false;
 	}
 	private void Start() {
 		LoadGameGuide("PlotScripts/GameGuide/起始引导.txt", new List<DialogueManager.AttachToSentence> {
@@ -66,6 +64,12 @@ public class GameGuide : MonoBehaviour {
 		// 等待回调方法，并再其中进行后续工作
 	}
 
+	#endregion
+
+	#region 交配教学
+	public void LoadCopulationGuide() {
+		Debug.Log("加载交配教学");
+	}
 	#endregion
 
 }

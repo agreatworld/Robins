@@ -44,7 +44,8 @@ public class CollectBranchesGuide : MonoBehaviour {
 			ClickSubMapGuide,
 			ShowConstructorsCard,
 			ClickConstructorCardGuide,
-			DragCardGuide
+			DragCardGuide,
+			DelayLoadCopulationGuide
 		});
 	}
 
@@ -67,5 +68,16 @@ public class CollectBranchesGuide : MonoBehaviour {
 
 	private void DragCardGuide() {
 
+	}
+
+	private void DelayLoadCopulationGuide() {
+		DialogueController.Instance.HideDialogue();
+		Invoke("LoadCopulationGuide", 8);
+		
+	}
+
+	private void LoadCopulationGuide() {
+		GameGuide.Instance.LoadCopulationGuide();
+		Destroy(this);
 	}
 }

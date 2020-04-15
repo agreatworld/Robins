@@ -92,6 +92,7 @@ public class MapUIController : MonoBehaviour {
 		infoArray[index].animation.buttonsShowing = true;
 		infoArray[index].animation.ShowAll();
 		ShowSubMapInfoUI();
+		infoArray[showingIndex].mouseEvents.HighLightSubMap();
 	}
 
 	public void ShowSubMapInfoUI() {

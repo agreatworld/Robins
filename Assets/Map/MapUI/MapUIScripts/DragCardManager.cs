@@ -36,6 +36,9 @@ public class DragCardManager : MonoBehaviour {
 	}
 
 	public void StartDragging(Sprite sprite) {
+		if (GameGuide.Instance.isGameGuiding) {
+			DialogueController.Instance.HideDialogue();
+		}
 		isDragging = true;
 		cover.sprite = sprite;
 		mousePosLastFrame = Camera.main.ScreenToWorldPoint(Input.mousePosition);

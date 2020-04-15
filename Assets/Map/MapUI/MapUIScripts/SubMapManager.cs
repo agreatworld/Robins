@@ -107,6 +107,11 @@ public class SubMapManager : MonoBehaviour {
 	/// 设施建造
 	/// </summary>
 	public void Construct(GameObject establishment, int rank) {
+		if (GameGuide.Instance.isGameGuiding) {
+			DialogueController.Instance.ShowDialogue();
+			DialogueManager.Instance.UpdateDialogueStatus();
+			DialogueManager.Instance.PlayNext();
+		}
 		construction.establishment = establishment;
 		construction.rank = rank;
 		construction.establishment.transform.parent = transform;

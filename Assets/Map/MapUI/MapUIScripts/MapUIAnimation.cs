@@ -82,7 +82,6 @@ public class MapUIAnimation : MonoBehaviour {
 		rootShowing = true;
 		rootButton.DOFade(1, 0.4f);
 		ShowButtons();
-
 	}
 
 	public void HideButtons() {
