@@ -93,6 +93,13 @@ public class SubMapManager : MonoBehaviour {
 		branch.AddComponent<BranchEventsForGuide>();
 	}
 
+	/// <summary>
+	/// 设施建造
+	/// </summary>
+	public void Construct() {
+
+	}
+
 	#endregion
 
 }

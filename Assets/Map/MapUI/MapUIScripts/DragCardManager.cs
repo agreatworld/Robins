@@ -27,7 +27,6 @@ public class DragCardManager : MonoBehaviour {
 	}
 
 	private void HandleDragging() {
-		Debug.Log(isDragging);
 		if (isDragging) {
 			Vector3 mousePosThisFrame = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			Vector2 offset = mousePosThisFrame - mousePosLastFrame;
@@ -46,5 +45,6 @@ public class DragCardManager : MonoBehaviour {
 	public void StopDragging() {
 		isDragging = false;
 		cover.gameObject.SetActive(false);
+		MapUIController.Instance.DisableAllEvents();
 	}
 }

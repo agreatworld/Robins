@@ -13,7 +13,7 @@ public class BagPreviewWindowTabs : MonoBehaviour {
 
 	private Vector3 showingVector = new Vector3(0, 0, 30);
 
-	private GameObject[] scrollViewContents = new GameObject[3];
+	private GameObject[] scrollViewContents = new GameObject[2];
 
 	private void Awake() {
 		Instance = this;
@@ -21,7 +21,6 @@ public class BagPreviewWindowTabs : MonoBehaviour {
 		GameObject viewport = transform.parent.Find("ScrollView").Find("Viewport").gameObject;
 		scrollViewContents[0] = viewport.transform.GetChild(0).gameObject;
 		scrollViewContents[1] = viewport.transform.GetChild(1).gameObject;
-		scrollViewContents[2] = viewport.transform.GetChild(2).gameObject;
 
 		showingIndex = 0;
 		ClickTab(showingIndex);

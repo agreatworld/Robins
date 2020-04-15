@@ -35,6 +35,12 @@ public class MouseEvents : MonoBehaviour {
 		}
 	}
 
+	private void OnMouseEnter() {
+		if (DragCardManager.Instance.isDragging) {
+
+		}
+	}
+
 	public void ResetMaterial() {
 		spriteRenderer.material = defaultMaterial;
 		spriteGlow.enabled = false;

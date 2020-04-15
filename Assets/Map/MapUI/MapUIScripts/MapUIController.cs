@@ -34,13 +34,12 @@ public class MapUIController : MonoBehaviour {
 			infoArray[i].animation = infoArray[i].canvas.transform.Find("MapButtonsHolder").GetComponent<MapUIAnimation>();
 			infoArray[i].canvas.SetActive(false);
 		}
-		gameObject.SetActive(false);
 	}
 
 	private void Update() {
 		if (!mouseEventsEnabled)
 			return;
-		if (Input.GetMouseButtonUp(0)) {
+		if (Input.GetMouseButtonDown(0)) {
 			ClickSubMap();
 		}
 
