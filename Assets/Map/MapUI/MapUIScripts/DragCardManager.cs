@@ -17,6 +17,7 @@ public class DragCardManager : MonoBehaviour {
 	private void Awake() {
 		Instance = this;
 		var sprite = new GameObject();
+		sprite.name = "DragCardCover";
 		sprite.AddComponent<SpriteRenderer>();
 		cover = sprite.GetComponent<SpriteRenderer>();
 		cover.sortingOrder = 20;

@@ -46,6 +46,9 @@ public class MapUIController : MonoBehaviour {
 	}
 
 	public void ClickSubMap() {
+		if (AvesSettleManager.Instance.isPreSettling) {
+			return;
+		}
 		RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 		if (hitInfo) {
 			string hitName = hitInfo.collider.name;

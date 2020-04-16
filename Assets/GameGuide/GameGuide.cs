@@ -1,5 +1,5 @@
-﻿using DG.Tweening;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GameGuide : MonoBehaviour {
@@ -47,11 +47,10 @@ public class GameGuide : MonoBehaviour {
 
 	#region 入住教学委托
 	private void ShowPasser() {
-		GameObject passer = Resources.Load<GameObject>("Aves/Passer");
-		GameObject go = Instantiate(passer, new Vector2(-7, 0), Quaternion.identity) as GameObject;
-		go.GetComponent<SpriteRenderer>().sortingOrder = 101;
-		go.AddComponent<PasserSettleGuide>();
-		go.GetComponent<SpriteRenderer>().DOFade(1, 1.2f);
+		AvesSettleManager.Instance.AddAves("山麻雀");
+		GameObject passer = AvesSettleManager.Instance.transform.Find("AvesSettleManager").Find("山麻雀").gameObject;
+		AvesSettleManager.Instance.gameObject.GetComponent<Canvas>().sortingOrder = 110;
+		passer.AddComponent<PasserSettleGuide>();
 		DialogueManager.Instance.UpdateDialogueStatus();
 	}
 	private void ClickPasserGuide() {
@@ -60,7 +59,7 @@ public class GameGuide : MonoBehaviour {
 		// 等待回调方法
 	}
 	private void ClickSubMapGuide() {
-		PasserSettleGuide.Instance.getReadyForSettleDown = true;
+
 		// 等待回调方法，并再其中进行后续工作
 	}
 

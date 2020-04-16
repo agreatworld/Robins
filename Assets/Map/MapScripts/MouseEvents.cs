@@ -42,7 +42,9 @@ public class MouseEvents : MonoBehaviour {
 		if (!MapUIController.Instance.mouseEventsEnabled)
 			return;
 		if (MapUIController.Instance.ShouldReactMaterial()) {
-			ResetMaterial();
+			if (!AvesSettleManager.Instance.isPreSettling) {
+				ResetMaterial();
+			}
 		}
 	}
 
@@ -54,17 +56,32 @@ public class MouseEvents : MonoBehaviour {
 
 	public void HighLightSubMap() {
 		//spriteRenderer.material = rimLightMaterial;
-		spriteGlow.enabled = true;
+		if (!spriteGlow.enabled) {
+			spriteGlow.enabled = true;
+		}
 	}
 
 	private void OnMouseUpAsButton() {
-		if (GameGuide.Instance.isGameGuiding && PasserSettleGuide.Instance && PasserSettleGuide.Instance.getReadyForSettleDown) {
-			PasserSettleGuide.Instance.ResetAllSubMaps();
+		if (GameGuide.Instance.isGameGuiding) {
+			HandleGameGuide();
+		}
+		HandleAvesSettleDown();
+	}
+
+	private void HandleAvesSettleDown() {
+		if (AvesSettleManager.Instance.isPreSettling) {
+			if (subMapManager.AddNewAves(AvesSettleManager.Instance.avesSettled)) {
+				// 鸟类定居成功
+				AvesSettleManager.Instance.AvesSettleDown();
+			}
+		}
+	}
+
+	private void HandleGameGuide() {
+		if (AvesSettleManager.Instance.isPreSettling) {
 			var manager = GetComponent<SubMapManager>();
-			manager.AddNewAves(PasserSettleGuide.Instance.gameObject);
 			manager.AddBranchEventsForGuide();
 			gameObject.AddComponent<CollectBranchesGuide>();
-			PasserSettleGuide.Instance.getReadyForSettleDown = false;
 			DialogueManager.Instance.UpdateDialogueStatus();
 			DialogueManager.Instance.PlayNext();
 		}

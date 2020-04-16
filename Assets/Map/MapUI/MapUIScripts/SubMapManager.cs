@@ -31,9 +31,15 @@ public class SubMapManager : MonoBehaviour {
 	/// </summary>
 	private float manufactureBranchesTimer = 0;
 
+	/// <summary>
+	/// 产出树枝的时间间隔
+	/// </summary>
 	[SerializeField]
 	private float manufactureBranchesTimeThreshold = 10f;
 
+	/// <summary>
+	/// 子地图上的设施建造信息
+	/// </summary>
 	private Construction construction;
 	#endregion
 
@@ -90,13 +96,21 @@ public class SubMapManager : MonoBehaviour {
 		}
 	}
 
-	public void AddNewAves(GameObject newAves) {
+	public bool AddNewAves(GameObject newAves) {
 		if (avesSettled.Count == 0) {
 			// 若地块还没有任何鸟类，标记地块标识
 			avesFlag = newAves.name;
+		} else {
+			if (avesFlag != newAves.name) {
+				Debug.Log("该地图已被其他鸟类占领");
+				return false;
+			}
 		}
 		avesSettled.Add(newAves);
 		newAves.transform.position = transform.position;
+		newAves.transform.parent = transform;
+		newAves.SetActive(true);
+		return true;
 	}
 
 	public void AddBranchEventsForGuide() {
