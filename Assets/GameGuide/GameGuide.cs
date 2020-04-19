@@ -21,6 +21,12 @@ public class GameGuide : MonoBehaviour {
 	/// </summary>
 	public bool enableMouseEvents = false;
 
+	/// <summary>
+	/// 加载第一只山麻雀
+	/// </summary>
+	[HideInInspector]
+	public bool firstPasser = true;
+
 	private void Awake() {
 		Instance = this;
 	}
@@ -66,8 +72,18 @@ public class GameGuide : MonoBehaviour {
 	#endregion
 
 	#region 交配教学
-	public void LoadCopulationGuide() {
-		Debug.Log("加载交配教学");
+	public void LoadCopulationGuide1() {
+		AvesSettleManager.Instance.AddAves("山麻雀");
+		LoadGameGuide("PlotScripts/GameGuide/交配教学1.txt", new List<DialogueManager.AttachToSentence> {
+			SettlePasserToTheSameSubMap
+		});
+	}
+
+	private void SettlePasserToTheSameSubMap() {
+		guideMask.SetActive(true);
+		AvesSettleManager.Instance.GetComponent<Canvas>().sortingOrder = 101;
+		Transform passer = AvesSettleManager.Instance.transform.Find("AvesSettleManager").Find("山麻雀");
+		passer.gameObject.AddComponent<ClickPasserDuringCopulationGuide>();
 	}
 	#endregion
 

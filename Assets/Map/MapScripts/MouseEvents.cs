@@ -62,7 +62,7 @@ public class MouseEvents : MonoBehaviour {
 	}
 
 	private void OnMouseUpAsButton() {
-		if (GameGuide.Instance.isGameGuiding) {
+		if (GameGuide.Instance.isGameGuiding && GameGuide.Instance.firstPasser) {
 			HandleGameGuide();
 		}
 		HandleAvesSettleDown();
@@ -79,6 +79,7 @@ public class MouseEvents : MonoBehaviour {
 
 	private void HandleGameGuide() {
 		if (AvesSettleManager.Instance.isPreSettling) {
+			GameGuide.Instance.firstPasser = false;
 			var manager = GetComponent<SubMapManager>();
 			manager.AddBranchEventsForGuide();
 			gameObject.AddComponent<CollectBranchesGuide>();

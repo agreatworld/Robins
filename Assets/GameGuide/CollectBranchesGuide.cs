@@ -77,7 +77,7 @@ public class CollectBranchesGuide : MonoBehaviour {
 	}
 
 	private void LoadCopulationGuide() {
-		GameGuide.Instance.LoadCopulationGuide();
+		GameGuide.Instance.LoadCopulationGuide1();
 		Destroy(this);
 	}
 }
