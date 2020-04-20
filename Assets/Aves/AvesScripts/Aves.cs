@@ -40,13 +40,45 @@ public class Aves : MonoBehaviour {
 	/// <summary>
 	/// 标识符
 	/// </summary>
-	public int index {
+	public int ID {
 		private set; get;
 	}
 
 	private void Awake() {
-		index = ++Index;
+		ID = ++Index;
 		var nameDetails = transform.name.Split('-');
 		isMale = nameDetails[1] == "雄(Clone)";
+		if (nameDetails[1] == "雄(Clone)") {
+			isMale = true;
+		} else if (nameDetails[1] == "雌(Clone)") {
+			isMale = false;
+		} else {
+			InitForAvesBaby();
+		}
+	}
+
+	private void InitForAvesBaby() {
+		Debug.Log("小鸟初始化");
+
+		// 性别
+		if (Random.Range(0, 100) < 50) {
+			isMale = true;
+			Debug.Log("这只宝宝是雄的");
+		} else {
+			isMale = false;
+			Debug.Log("这只宝宝是雌的");
+		}
+
+		// 成熟性
+		isMature = false;
+
+		// 非野生型
+		isFromCopulation = true;
+
+		// 父母标识已在外部赋值
+
+		// 更换sprite
+		Debug.LogError("暂未处理小鸟宝宝的sprite，这与小鸟性别有关");
+		
 	}
 }

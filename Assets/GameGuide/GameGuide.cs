@@ -86,6 +86,10 @@ public class GameGuide : MonoBehaviour {
 		MapUIController.Instance.DisableAllEvents();
 		passer.gameObject.AddComponent<ClickPasserDuringCopulationGuide>();
 	}
+
+	public void LoadCopulationGuide2() {
+		LoadGameGuide("PlotScripts/GameGuide/交配教学2.txt", null);
+	}
 	#endregion
 
 }

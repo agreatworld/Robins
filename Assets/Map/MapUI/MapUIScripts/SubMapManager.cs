@@ -129,18 +129,29 @@ public class SubMapManager : MonoBehaviour {
 		}
 		// 对入住鸟类的进行伦理鉴定
 		if (aves1.isFromCopulation) {
-			if (aves1.parentsIndex[0] == aves2.index || aves1.parentsIndex[1] == aves2.index) {
+			if (aves1.parentsIndex[0] == aves2.ID || aves1.parentsIndex[1] == aves2.ID) {
 				return;
 			}
 		}
 		if (aves2.isFromCopulation) {
-			if (aves2.parentsIndex[0] == aves1.index || aves2.parentsIndex[1] == aves1.index) {
+			if (aves2.parentsIndex[0] == aves1.ID || aves2.parentsIndex[1] == aves1.ID) {
 				return;
 			}
 		}
 
 		// 产出小鸟
 		Debug.Log("小鸟出生");
+		int fatherID, motherID;
+		fatherID = aves1.isMale ? aves1.ID : aves2.ID;
+		motherID = aves1.isMale ? aves2.ID : aves1.ID;
+		AddNewAves(Instantiate(avesSettled[0]), fatherID, motherID);
+		HandleCopulationGuide();
+	}
+
+	private void HandleCopulationGuide() {
+		if (GameGuide.Instance.isGameGuiding) {
+			GameGuide.Instance.LoadCopulationGuide2();
+		}
 	}
 
 	#endregion
@@ -154,7 +165,7 @@ public class SubMapManager : MonoBehaviour {
 		}
 	}
 
-	public bool AddNewAves(GameObject newAves) {
+	public bool AddNewAves(GameObject newAves, int father = 0, int mother = 0) {
 		var words = newAves.name.Split('-');
 		if (avesSettled.Count == 0) {
 			// 若地块还没有任何鸟类，标记地块标识
@@ -166,7 +177,10 @@ public class SubMapManager : MonoBehaviour {
 			}
 		}
 		avesSettled.Add(newAves);
-		avesScriptsDic.Add(newAves, newAves.GetComponent<Aves>());
+		Aves aves = newAves.GetComponent<Aves>();
+		aves.parentsIndex[0] = father;
+		aves.parentsIndex[1] = mother;
+		avesScriptsDic.Add(newAves, aves);
 		newAves.transform.position = transform.position;
 		newAves.transform.parent = transform;
 		newAves.SetActive(true);
