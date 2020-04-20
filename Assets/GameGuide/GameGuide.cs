@@ -22,7 +22,7 @@ public class GameGuide : MonoBehaviour {
 	public bool enableMouseEvents = false;
 
 	/// <summary>
-	/// 加载第一只山麻雀
+	/// 加载第一只山麻雀-雄
 	/// </summary>
 	[HideInInspector]
 	public bool firstPasser = true;
@@ -53,8 +53,8 @@ public class GameGuide : MonoBehaviour {
 
 	#region 入住教学委托
 	private void ShowPasser() {
-		AvesSettleManager.Instance.AddAves("山麻雀");
-		GameObject passer = AvesSettleManager.Instance.transform.Find("AvesSettleManager").Find("山麻雀").gameObject;
+		AvesSettleManager.Instance.AddAves("山麻雀-雄");
+		GameObject passer = AvesSettleManager.Instance.transform.Find("AvesSettleManager").Find("山麻雀-雄").gameObject;
 		AvesSettleManager.Instance.gameObject.GetComponent<Canvas>().sortingOrder = 110;
 		passer.AddComponent<PasserSettleGuide>();
 		DialogueManager.Instance.UpdateDialogueStatus();
@@ -73,7 +73,7 @@ public class GameGuide : MonoBehaviour {
 
 	#region 交配教学
 	public void LoadCopulationGuide1() {
-		AvesSettleManager.Instance.AddAves("山麻雀");
+		AvesSettleManager.Instance.AddAves("山麻雀-雌");
 		LoadGameGuide("PlotScripts/GameGuide/交配教学1.txt", new List<DialogueManager.AttachToSentence> {
 			SettlePasserToTheSameSubMap
 		});
@@ -82,7 +82,8 @@ public class GameGuide : MonoBehaviour {
 	private void SettlePasserToTheSameSubMap() {
 		guideMask.SetActive(true);
 		AvesSettleManager.Instance.GetComponent<Canvas>().sortingOrder = 101;
-		Transform passer = AvesSettleManager.Instance.transform.Find("AvesSettleManager").Find("山麻雀");
+		Transform passer = AvesSettleManager.Instance.transform.Find("AvesSettleManager").Find("山麻雀-雌");
+		MapUIController.Instance.DisableAllEvents();
 		passer.gameObject.AddComponent<ClickPasserDuringCopulationGuide>();
 	}
 	#endregion

@@ -14,6 +14,8 @@ public class SubMapManager : MonoBehaviour {
 	#region field
 	private List<GameObject> avesSettled = new List<GameObject>();
 
+	private Dictionary<GameObject, Aves> avesScriptsDic = new Dictionary<GameObject, Aves>();
+
 	[HideInInspector]
 	/// <summary>
 	/// 树枝
@@ -41,6 +43,16 @@ public class SubMapManager : MonoBehaviour {
 	/// 子地图上的设施建造信息
 	/// </summary>
 	private Construction construction;
+
+	/// <summary>
+	/// 孵化小鸟计时器
+	/// </summary>
+	private float copulationCheckTimer = 0;
+
+	/// <summary>
+	/// 孵化小鸟时间间隔
+	/// </summary>
+	private float copulationCheckThresholdTime;
 	#endregion
 
 
@@ -50,20 +62,24 @@ public class SubMapManager : MonoBehaviour {
 		branch = Resources.Load<GameObject>("Branch");
 		branch = transform.Find("Branch").gameObject;
 		branch.SetActive(false);
+		CalculateCopulationThresholdTime();
 	}
 
 	private void Update() {
 		ManufactureBranches();
+		HandleAvesCopulation();
+
 	}
 	#endregion
 
 	#region private methods
+
+	private void CalculateCopulationThresholdTime() {
+		copulationCheckThresholdTime = 10;
+	}
+
 	private void ManufactureBranches() {
-		if (GameGuide.Instance.isGameGuiding) {
-			if (avesSettled.Count > 0) {
-				// 新手引导期间只产生一此树枝
-			}
-		}
+
 		if (avesSettled.Count == 0) {
 			// 没有已入住鸟类，无树枝产出
 			return;
@@ -85,6 +101,48 @@ public class SubMapManager : MonoBehaviour {
 		}
 
 	}
+
+	private void HandleAvesCopulation() {
+		copulationCheckTimer += Time.deltaTime;
+		if (copulationCheckTimer < copulationCheckThresholdTime) {
+			return;
+		}
+		// 重置计时器
+		copulationCheckTimer = 0;
+
+		if (avesSettled.Count != 2) {
+			// 入住鸟数不等于2，不考虑交配：1不满足交配条件；3已达地块容纳最大数量
+			return;
+		}
+
+		// 缓存两只鸟的信息
+		Aves aves1 = avesScriptsDic[avesSettled[0]];
+		Aves aves2 = avesScriptsDic[avesSettled[1]];
+
+		// 对入住鸟类的性别进行鉴定
+		if (aves1.isMale == aves2.isMale) {
+			return;
+		}
+		// 对入住鸟类的成熟性进行鉴定，小鸟不宜
+		if (!aves1.isMature || !aves2.isMature) {
+			return;
+		}
+		// 对入住鸟类的进行伦理鉴定
+		if (aves1.isFromCopulation) {
+			if (aves1.parentsIndex[0] == aves2.index || aves1.parentsIndex[1] == aves2.index) {
+				return;
+			}
+		}
+		if (aves2.isFromCopulation) {
+			if (aves2.parentsIndex[0] == aves1.index || aves2.parentsIndex[1] == aves1.index) {
+				return;
+			}
+		}
+
+		// 产出小鸟
+		Debug.Log("小鸟出生");
+	}
+
 	#endregion
 
 	#region public methods
@@ -97,21 +155,24 @@ public class SubMapManager : MonoBehaviour {
 	}
 
 	public bool AddNewAves(GameObject newAves) {
+		var words = newAves.name.Split('-');
 		if (avesSettled.Count == 0) {
 			// 若地块还没有任何鸟类，标记地块标识
-			avesFlag = newAves.name;
+			avesFlag = words[0];
 		} else {
-			if (avesFlag != newAves.name) {
+			if (avesFlag != words[0]) {
 				Debug.Log("该地图已被其他鸟类占领");
 				return false;
 			}
 		}
 		avesSettled.Add(newAves);
+		avesScriptsDic.Add(newAves, newAves.GetComponent<Aves>());
 		newAves.transform.position = transform.position;
 		newAves.transform.parent = transform;
 		newAves.SetActive(true);
 		return true;
 	}
+
 
 	public void AddBranchEventsForGuide() {
 		branch.AddComponent<BranchEventsForGuide>();
@@ -131,6 +192,7 @@ public class SubMapManager : MonoBehaviour {
 		construction.establishment.transform.parent = transform;
 		construction.establishment.transform.localPosition = Vector2.zero;
 	}
+
 
 	#endregion
 

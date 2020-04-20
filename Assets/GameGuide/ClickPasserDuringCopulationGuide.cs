@@ -8,6 +8,8 @@ public class ClickPasserDuringCopulationGuide : MonoBehaviour, IPointerClickHand
 		GameGuide.Instance.guideMask.SetActive(false);
 		AvesSettleManager.Instance.GetComponent<Canvas>().sortingOrder = 0;
 		DialogueController.Instance.HideDialogue();
+		MapUIController.Instance.EnableAllEvents();
 		Destroy(this);
 	}
+
 }

@@ -12,6 +12,7 @@ public class AvesMouseEvents : MonoBehaviour, IPointerClickHandler {
 		if (avesShowAtMap) {
 			avesShowAtMap = Instantiate(avesShowAtMap) as GameObject;
 			avesShowAtMap.SetActive(false);
+			
 		} else {
 			Debug.LogError("加载资源出错，请检查路径");
 		}

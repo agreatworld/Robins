@@ -7489,6 +7489,7 @@ MonoBehaviour:
   guideMask: {fileID: 0}
   isGameGuiding: 1
   enableMouseEvents: 0
+  firstPasser: 1
 --- !u!1 &624082270 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1819799642584292365, guid: becc74f452ccd7a499b689740b3c62a2,
