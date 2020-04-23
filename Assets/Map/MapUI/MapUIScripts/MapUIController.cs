@@ -6,6 +6,7 @@ public class MapUIController : MonoBehaviour {
 		public GameObject canvas;
 		public MapUIAnimation animation;
 		public MouseEvents mouseEvents;
+		public SubMapManager subMapManager;
 		public int index;
 	}
 
@@ -32,6 +33,7 @@ public class MapUIController : MonoBehaviour {
 			infoArray[i].index = i;
 			infoArray[i].canvas = subMap.Find("Canvas").gameObject;
 			infoArray[i].animation = infoArray[i].canvas.transform.Find("MapButtonsHolder").GetComponent<MapUIAnimation>();
+			infoArray[i].subMapManager = subMap.GetComponent<SubMapManager>();
 			infoArray[i].canvas.SetActive(false);
 		}
 	}
@@ -101,7 +103,7 @@ public class MapUIController : MonoBehaviour {
 	public void ShowSubMapInfoUI() {
 		// 显示子地图信息面板
 		SubMapAttachmentUI.Instance.gameObject.SetActive(true);
-		SubMapAttachmentUI.Instance.UpdateInfo();
+		SubMapAttachmentUI.Instance.UpdateInfo(infoArray[showingIndex].subMapManager.GetAvesSettled());
 	}
 
 	public void HideButtons(int index) {

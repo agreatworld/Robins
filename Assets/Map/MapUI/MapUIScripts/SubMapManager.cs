@@ -207,6 +207,9 @@ public class SubMapManager : MonoBehaviour {
 		construction.establishment.transform.localPosition = Vector2.zero;
 	}
 
+	public List<GameObject> GetAvesSettled() {
+		return avesSettled;
+	}
 
 	#endregion
 
