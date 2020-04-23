@@ -52,7 +52,7 @@ public class AvesSettleManager : MonoBehaviour {
 	}
 
 	public void AddAves(string avesName) {
-		// 若队列已满不加入新鸟
+		// 若队列已满不加入新鸟a
 		if (avesUnits[unitCount - 1].aves != null) {
 			return;
 		}

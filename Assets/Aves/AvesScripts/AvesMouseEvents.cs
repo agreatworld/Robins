@@ -8,9 +8,16 @@ public class AvesMouseEvents : MonoBehaviour, IPointerClickHandler {
 	public GameObject avesShowAtMap;
 
 	private void Awake() {
-		avesShowAtMap = Resources.Load<GameObject>("Aves/AvesShowAtMap/" + transform.name);
-		if (avesShowAtMap) {
-			avesShowAtMap = Instantiate(avesShowAtMap) as GameObject;
+		var resource = Resources.Load<Sprite>("Aves/AvesShowAtMap/" + transform.name);
+		if (resource) {
+			avesShowAtMap = new GameObject();
+			avesShowAtMap.transform.localScale = Vector2.one * 0.2f;
+			avesShowAtMap.AddComponent<SpriteRenderer>();
+			SpriteRenderer sr = avesShowAtMap.GetComponent<SpriteRenderer>();
+			sr.sprite = resource;
+			sr.sortingOrder = 4;
+			avesShowAtMap.name = transform.name;
+			avesShowAtMap.AddComponent<Aves>();
 			avesShowAtMap.SetActive(false);
 			
 		} else {

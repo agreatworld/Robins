@@ -47,12 +47,13 @@ public class Aves : MonoBehaviour {
 	private void Awake() {
 		ID = ++Index;
 		var nameDetails = transform.name.Split('-');
-		isMale = nameDetails[1] == "雄(Clone)";
-		if (nameDetails[1] == "雄(Clone)") {
+		isMale = nameDetails[1] == "雄";
+		if (nameDetails[1] == "雄") {
 			isMale = true;
-		} else if (nameDetails[1] == "雌(Clone)") {
+		} else if (nameDetails[1] == "雌") {
 			isMale = false;
 		} else {
+			transform.name = nameDetails[0] + '-' + "小";
 			InitForAvesBaby();
 		}
 	}
