@@ -57,6 +57,7 @@ public class Aves : MonoBehaviour {
 		}
 	}
 
+
 	private void InitForAvesBaby() {
 		Debug.Log("小鸟初始化");
 
