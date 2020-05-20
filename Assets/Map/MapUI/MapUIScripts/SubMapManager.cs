@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SubMapManager : MonoBehaviour {
 
+
 	#region internal structrue
 	private struct Construction {
 		public GameObject establishment;
@@ -15,6 +16,8 @@ public class SubMapManager : MonoBehaviour {
 	private List<GameObject> avesSettled = new List<GameObject>();
 
 	private Dictionary<GameObject, Aves> avesScriptsDic = new Dictionary<GameObject, Aves>();
+
+	public SubMapType subMapType;
 
 	[HideInInspector]
 	/// <summary>
@@ -59,6 +62,7 @@ public class SubMapManager : MonoBehaviour {
 
 	#region monobehaviour
 	private void Awake() {
+		avesFlag = "";
 		branch = Resources.Load<GameObject>("Branch");
 		branch = transform.Find("Branch").gameObject;
 		branch.SetActive(false);
@@ -150,7 +154,10 @@ public class SubMapManager : MonoBehaviour {
 
 	private void HandleCopulationGuide() {
 		if (GameGuide.Instance.isGameGuiding) {
-			GameGuide.Instance.LoadCopulationGuide2();
+			if (!GameGuide.Instance.copulationGuideLoaded) {
+				GameGuide.Instance.LoadCopulationGuide2();
+				GameGuide.Instance.copulationGuideLoaded = true;
+			}
 		}
 	}
 
@@ -209,6 +216,15 @@ public class SubMapManager : MonoBehaviour {
 
 	public List<GameObject> GetAvesSettled() {
 		return avesSettled;
+	}
+
+	/// <summary>
+	/// 清除鸟类
+	/// </summary>
+	public void ClearAves() {
+		avesFlag = null;
+		avesSettled.Clear();
+		avesScriptsDic.Clear();
 	}
 
 	#endregion

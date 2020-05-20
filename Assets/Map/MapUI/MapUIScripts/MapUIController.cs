@@ -103,7 +103,7 @@ public class MapUIController : MonoBehaviour {
 	public void ShowSubMapInfoUI() {
 		// 显示子地图信息面板
 		SubMapAttachmentUI.Instance.gameObject.SetActive(true);
-		SubMapAttachmentUI.Instance.UpdateInfo(infoArray[showingIndex].subMapManager.GetAvesSettled());
+		SubMapAttachmentUI.Instance.UpdateInfo(infoArray[showingIndex].subMapManager, infoArray[showingIndex].subMapManager.GetAvesSettled(), infoArray[showingIndex].subMapManager.subMapType);
 	}
 
 	public void HideButtons(int index) {
@@ -182,4 +182,16 @@ public class MapUIController : MonoBehaviour {
 		return infoArray;
 	}
 
+	public void HighLightAllSubMaps() {
+		foreach(var info in infoArray) {
+			info.mouseEvents.HighLightSubMap();
+		}
+	}
+
+	public void ResetAllSubMaps() {
+		foreach(var info in infoArray) {
+			info.mouseEvents.ResetMaterial();
+		}
+		infoArray[showingIndex].animation.HideAll();
+	}
 }

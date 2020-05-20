@@ -65,6 +65,10 @@ public class MouseEvents : MonoBehaviour {
 		if (GameGuide.Instance.isGameGuiding && GameGuide.Instance.firstPasser) {
 			HandleGameGuide();
 		}
+		if (AvesTransitionManager.Instance.waitForDest) {
+			AvesTransitionManager.Instance.waitForDest = false;
+			AvesTransitionManager.Instance.SetDest(subMapManager);
+		}
 		HandleAvesSettleDown();
 	}
 

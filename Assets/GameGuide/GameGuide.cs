@@ -13,7 +13,7 @@ public class GameGuide : MonoBehaviour {
 	/// <summary>
 	/// 是否正在进行新手引导
 	/// </summary>
-	public bool isGameGuiding = true;
+	public bool isGameGuiding = false;
 
 	[HideInInspector]
 	/// <summary>
@@ -27,10 +27,20 @@ public class GameGuide : MonoBehaviour {
 	[HideInInspector]
 	public bool firstPasser = true;
 
+	/// <summary>
+	/// 已加载交配教学引导
+	/// </summary>
+	[HideInInspector]
+	public bool copulationGuideLoaded = false;
+
 	private void Awake() {
 		Instance = this;
+		isGameGuiding = true;
 	}
 	private void Start() {
+		if (!isGameGuiding) {
+			return;
+		}
 		LoadGameGuide("PlotScripts/GameGuide/起始引导.txt", new List<DialogueManager.AttachToSentence> {
 			LoadSettleGuide
 		});
@@ -88,7 +98,19 @@ public class GameGuide : MonoBehaviour {
 	}
 
 	public void LoadCopulationGuide2() {
-		LoadGameGuide("PlotScripts/GameGuide/交配教学2.txt", null);
+		LoadGameGuide("PlotScripts/GameGuide/交配教学2.txt", new List<DialogueManager.AttachToSentence>{
+			()=>{ 
+				LoadAvesTransitionGuide();
+			}
+		});
+		;
+	}
+	#endregion
+
+	#region 迁移教学
+	public void LoadAvesTransitionGuide() {
+		isGameGuiding = false;
+		LoadGameGuide("PlotScripts/GameGuide/迁移教学.txt", null);
 	}
 	#endregion
 

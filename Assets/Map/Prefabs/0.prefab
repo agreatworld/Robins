@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 1819799642584292363}
   - component: {fileID: 1819799642584292362}
   - component: {fileID: 1819799642584292361}
-  - component: {fileID: 1819799642584292375}
   - component: {fileID: 114306370418663170}
   - component: {fileID: 9316182634689682}
   m_Layer: 0
@@ -223,7 +222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a027bd1927225cc438954034bf1730bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!60 &1819799642584292361
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -365,19 +363,6 @@ PolygonCollider2D:
       - {x: 1.14, y: -2.115}
       - {x: 1.17, y: -2.125}
       - {x: 1.37, y: -2.075}
---- !u!114 &1819799642584292375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819799642584292365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22decfcc753bbb441911492acabc7ce2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  differentiation: 
 --- !u!114 &114306370418663170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,6 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e32e8d6449915742adbd9b0cc3b0db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subMapType: 0
   branch: {fileID: 0}
   avesFlag: 
   manufactureBranchesTimeThreshold: 10
