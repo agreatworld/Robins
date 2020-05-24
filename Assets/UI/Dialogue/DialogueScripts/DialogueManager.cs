@@ -258,7 +258,7 @@ public class DialogueManager : MonoBehaviour {
 	/// 初始化对话树UI，加载头像和名字
 	/// </summary>
 	private void InitDialogue() {
-		Debug.LogError("还未初始化头像");
+		Debug.LogError("未初始化对话框头像");
 		dialogueScript.UpdateIndex();
 		dialogueTree.Init(dialogueScript.GetNextName(), dialogueScript.GetNextContent(), null);
 	}
