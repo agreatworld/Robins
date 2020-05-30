@@ -25,7 +25,7 @@ public class CollectBranchesGuide : MonoBehaviour {
 			timer += Time.deltaTime;
 			if (timer > timeThreshold) {
 				guideLoaded = true;
-				GameGuide.Instance.LoadGameGuide("PlotScripts/GameGuide/收取树枝教学.txt", new List<DialogueManager.AttachToSentence> {
+				GameGuide.Instance.LoadGameGuide("PlotScripts/GameGuide/收取树枝教学", new List<DialogueManager.AttachToSentence> {
 					ClickBranchGuide,
 					LoadConstructGuide
 				});
@@ -40,7 +40,7 @@ public class CollectBranchesGuide : MonoBehaviour {
 	}
 
 	private void LoadConstructGuide() {
-		GameGuide.Instance.LoadGameGuide("PlotScripts/GameGuide/设施建造教学.txt", new List<DialogueManager.AttachToSentence> {
+		GameGuide.Instance.LoadGameGuide("PlotScripts/GameGuide/设施建造教学", new List<DialogueManager.AttachToSentence> {
 			ClickSubMapGuide,
 			ShowConstructorsCard,
 			ClickConstructorCardGuide,

@@ -68,7 +68,7 @@ public class DialogueManager : MonoBehaviour {
 			if (time == 0) {
 				return;
 			}
-			content.DOText(newContent, time).OnComplete(()=>{
+			content.DOText(newContent, time).OnComplete(() => {
 				var method = Instance.dialogueScript.GetReact();
 				if (method != null) {
 					method.Invoke();
@@ -217,39 +217,35 @@ public class DialogueManager : MonoBehaviour {
 		Dictionary<int, int> reactDic = new Dictionary<int, int>();
 		int count = 0; // 需要委托方法的数量
 		// 读取剧本
-		try {
-			using (StreamReader sr = new StreamReader(scriptPath)) {
-				string txt = sr.ReadToEnd();
-				string[] segments = txt.Split(new string[] { "\r\n#\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-				for (int i = 0; i < segments.Length; ++i) {
-					// 判断剧本是否单主角
-					if (i == 0) {
-						int result = -1;
-						if (int.TryParse(segments[i], out result)) {
-							isSingleProtagonist = result == 1 ? true : false;
-						}
-						continue;
-					}
-					// patches[0]存放了对话者的名字，patches[1]存放语句内容
-					string[] patches = segments[i].Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-					names.Add(patches[0]);
-					string[] words = patches[1].Split('*');
-					// words[0]是标志位，定义这一语句是否有伴随交互；words[1]存放具体内容
-					int key = contents.Count, value = -1;
-					if (words.Length == 1) {
-						value = -1;
-						contents.Add(words[0]);
-					} else {
-						value = count++;
-						contents.Add(words[1]);
-					}
-					reactDic.Add(key, value);
+		//string txt = sr.ReadToEnd();
+		string txt = Resources.Load<TextAsset>(scriptPath).ToString();
+		string[] segments = txt.Split(new string[] { "\r\n#\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+		for (int i = 0; i < segments.Length; ++i) {
+			// 判断剧本是否单主角
+			if (i == 0) {
+				int result = -1;
+				if (int.TryParse(segments[i], out result)) {
+					isSingleProtagonist = result == 1 ? true : false;
 				}
+				continue;
 			}
-		} catch (Exception e) {
-			// 向用户显示出错消息
-			Debug.LogError(e.Message);
+			// patches[0]存放了对话者的名字，patches[1]存放语句内容
+			string[] patches = segments[i].Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+			names.Add(patches[0]);
+			string[] words = patches[1].Split('*');
+			// words[0]是标志位，定义这一语句是否有伴随交互；words[1]存放具体内容
+			int key = contents.Count, value = -1;
+			if (words.Length == 1) {
+				value = -1;
+				contents.Add(words[0]);
+			} else {
+				value = count++;
+				contents.Add(words[1]);
+			}
+			reactDic.Add(key, value);
 		}
+
+
 		dialogueScript = new Script(isSingleProtagonist, names, contents, reactDic, reacts);
 		InitDialogue();
 	}

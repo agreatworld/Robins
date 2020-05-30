@@ -41,7 +41,7 @@ public class GameGuide : MonoBehaviour {
 		if (!isGameGuiding) {
 			return;
 		}
-		LoadGameGuide("PlotScripts/GameGuide/起始引导.txt", new List<DialogueManager.AttachToSentence> {
+		LoadGameGuide("PlotScripts/GameGuide/起始引导", new List<DialogueManager.AttachToSentence> {
 			LoadSettleGuide
 		});
 
@@ -53,7 +53,7 @@ public class GameGuide : MonoBehaviour {
 
 	#region 起始引导委托
 	private void LoadSettleGuide() {
-		LoadGameGuide("PlotScripts/GameGuide/入住教学.txt", new List<DialogueManager.AttachToSentence> {
+		LoadGameGuide("PlotScripts/GameGuide/入住教学", new List<DialogueManager.AttachToSentence> {
 				ShowPasser,
 				ClickPasserGuide,
 				ClickSubMapGuide
@@ -84,7 +84,7 @@ public class GameGuide : MonoBehaviour {
 	#region 交配教学
 	public void LoadCopulationGuide1() {
 		AvesSettleManager.Instance.AddAves("山麻雀-雌");
-		LoadGameGuide("PlotScripts/GameGuide/交配教学1.txt", new List<DialogueManager.AttachToSentence> {
+		LoadGameGuide("PlotScripts/GameGuide/交配教学1", new List<DialogueManager.AttachToSentence> {
 			SettlePasserToTheSameSubMap
 		});
 	}
@@ -98,7 +98,7 @@ public class GameGuide : MonoBehaviour {
 	}
 
 	public void LoadCopulationGuide2() {
-		LoadGameGuide("PlotScripts/GameGuide/交配教学2.txt", new List<DialogueManager.AttachToSentence>{
+		LoadGameGuide("PlotScripts/GameGuide/交配教学2", new List<DialogueManager.AttachToSentence>{
 			()=>{ 
 				LoadAvesTransitionGuide();
 			}
@@ -110,7 +110,7 @@ public class GameGuide : MonoBehaviour {
 	#region 迁移教学
 	public void LoadAvesTransitionGuide() {
 		isGameGuiding = false;
-		LoadGameGuide("PlotScripts/GameGuide/迁移教学.txt", null);
+		LoadGameGuide("PlotScripts/GameGuide/迁移教学", null);
 	}
 	#endregion
 

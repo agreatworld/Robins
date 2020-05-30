@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 
 namespace Shop {
-	public class Back : MonoBehaviour, IPointerClickHandler {
+	public class Back : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler {
 
 		private GameObject shop;
 
@@ -12,6 +12,10 @@ namespace Shop {
 
 		public void OnPointerClick(PointerEventData eventData) {
 			shop.SetActive(false);
+		}
+
+		public void OnPointerEnter(PointerEventData eventData) {
+			Debug.Log(1);
 		}
 	}
 
