@@ -44,6 +44,11 @@ public class Aves : MonoBehaviour {
 		private set; get;
 	}
 
+	/// <summary>
+	/// 鸟出现时触发的剧情（-1表示无）
+	/// </summary>
+	private int plotIndex = -1;
+
 	private void Awake() {
 		ID = ++Index;
 		var nameDetails = transform.name.Split('-');
@@ -56,8 +61,19 @@ public class Aves : MonoBehaviour {
 			transform.name = nameDetails[0] + '-' + "小";
 			InitForAvesBaby();
 		}
+		plotIndex = AvesPlotTriggerHandler.Instance.CheckAvesAndUpdateInfo(nameDetails[0], isMale, !isMale);
 	}
 
+	public void HandlePlots() {
+		if (plotIndex < 0)
+			return;
+		Debug.Log(transform.parent);
+		PlotTrigger pt = transform.parent.Find("PlotTrigger").GetComponent<PlotTrigger>();
+		string name = this.name.Split('-')[0];
+		pt.SetPlotPath("PlotScripts/Plots/" + name + "/" + name + plotIndex);
+		pt.gameObject.SetActive(true);
+
+	}
 
 	private void InitForAvesBaby() {
 		Debug.Log("小鸟初始化");
@@ -81,6 +97,6 @@ public class Aves : MonoBehaviour {
 
 		// 更换sprite
 		Debug.LogError("暂未处理小鸟宝宝的sprite，这与小鸟性别有关");
-		
+
 	}
 }

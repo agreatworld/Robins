@@ -191,6 +191,7 @@ public class SubMapManager : MonoBehaviour {
 		newAves.transform.position = transform.position;
 		newAves.transform.parent = transform;
 		newAves.SetActive(true);
+		newAves.GetComponent<Aves>().HandlePlots();
 		return true;
 	}
 

@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 2554766}
   - component: {fileID: 2554769}
   - component: {fileID: 2554770}
+  - component: {fileID: 2554771}
   m_Layer: 0
   m_Name: AvesManagerCanvas
   m_TagString: Untagged
@@ -238,6 +239,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba0e9675d48ade94f99e103c4f35490d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2554771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2554764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ace587adad28343b9a525ebc4ca383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &10463075
@@ -788,7 +801,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 15
   m_TargetDisplay: 0
 --- !u!224 &88776833
 RectTransform:
@@ -3669,6 +3682,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -2.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5301729035468118028, guid: becc74f452ccd7a499b689740b3c62a2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 5301729035468118028, guid: becc74f452ccd7a499b689740b3c62a2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.29
       objectReference: {fileID: 0}
     - target: {fileID: 8232290207699220501, guid: becc74f452ccd7a499b689740b3c62a2,
         type: 3}
@@ -8566,6 +8589,7 @@ GameObject:
   - component: {fileID: 673927714}
   - component: {fileID: 673927716}
   - component: {fileID: 673927715}
+  - component: {fileID: 673927717}
   m_Layer: 5
   m_Name: Branch
   m_TagString: Untagged
@@ -8628,6 +8652,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 673927713}
   m_CullTransparentMesh: 0
+--- !u!114 &673927717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673927713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74005af76c388894dbc39ccde5f26be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  branchCount: 0
 --- !u!1 &678906901
 GameObject:
   m_ObjectHideFlags: 0
@@ -16195,6 +16232,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -2.13
       objectReference: {fileID: 0}
+    - target: {fileID: 5301729035468118028, guid: becc74f452ccd7a499b689740b3c62a2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5301729035468118028, guid: becc74f452ccd7a499b689740b3c62a2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.14
+      objectReference: {fileID: 0}
     - target: {fileID: 8232290207699220501, guid: becc74f452ccd7a499b689740b3c62a2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20772,6 +20819,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -2.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 5301729035468118028, guid: becc74f452ccd7a499b689740b3c62a2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5301729035468118028, guid: becc74f452ccd7a499b689740b3c62a2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 8232290207699220501, guid: becc74f452ccd7a499b689740b3c62a2,
         type: 3}

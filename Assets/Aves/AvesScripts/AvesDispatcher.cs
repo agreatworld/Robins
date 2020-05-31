@@ -1,9 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
+using UnityEngine.Video;
 
 public class AvesDispatcher : MonoBehaviour {
+
+	private float timer = 0;
+	private float restTime = 20;
+
 	/// <summary>
 	/// 阶梯数据存储
 	/// </summary>
@@ -34,6 +37,24 @@ public class AvesDispatcher : MonoBehaviour {
 		avesFirstShowUp.Add("金雕", false);
 		avesFirstShowUp.Add("知更鸟", false);
 		avesFirstShowUp.Add("东方白鹳", false);
+
+
+	}
+
+	private void Update() {
+		HandleTimer();
+	}
+
+	private void HandleTimer() {
+		if (GameGuide.Instance.isGameGuiding) {
+			// 引导期间不执行
+			return;
+		}
+		timer += Time.deltaTime;
+		if (timer > restTime) {
+			AddAves();
+			timer = 0;
+		}
 	}
 
 	private void AddAves() {

@@ -11,6 +11,7 @@ public class Branch : MonoBehaviour {
 
 	private void OnMouseUpAsButton() {
 		Debug.Log("捡了" + count + "根树枝");
+		BranchUI.Instance.AddCount(count);
 		count = 0;
 		gameObject.SetActive(false);
 	}
