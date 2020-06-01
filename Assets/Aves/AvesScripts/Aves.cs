@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Aves : MonoBehaviour {
 
@@ -49,6 +47,15 @@ public class Aves : MonoBehaviour {
 	/// </summary>
 	private int plotIndex = -1;
 
+	/// <summary>
+	/// 所在子地图
+	/// </summary>
+	private SubMapManager subMapManager = null;
+
+	private float manipulateBranchesTimer = 0;
+
+	private float manipulateBranchesTime = 10;
+
 	private void Awake() {
 		ID = ++Index;
 		var nameDetails = transform.name.Split('-');
@@ -62,6 +69,23 @@ public class Aves : MonoBehaviour {
 			InitForAvesBaby();
 		}
 		plotIndex = AvesPlotTriggerHandler.Instance.CheckAvesAndUpdateInfo(nameDetails[0], isMale, !isMale);
+	}
+
+	private void Update() {
+		HandleBranch();
+	}
+
+	private void HandleBranch() {
+		manipulateBranchesTimer += Time.deltaTime;
+		if (manipulateBranchesTimer < manipulateBranchesTime)
+			return;
+		manipulateBranchesTimer = 0;
+		if (subMapManager == null) {
+			subMapManager = transform.parent.GetComponent<SubMapManager>();
+		}
+		string name = this.name.Split('-')[0];
+		int count = AvesDataBase.Instance.GetBranchesPerTenSecondsByName(name);
+		subMapManager.ManufactureBranches(count, name);
 	}
 
 	public void HandlePlots() {
@@ -98,4 +122,6 @@ public class Aves : MonoBehaviour {
 		Debug.LogError("暂未处理小鸟宝宝的sprite，这与小鸟性别有关");
 
 	}
+
+
 }

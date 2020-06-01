@@ -23,24 +23,13 @@ public class SubMapManager : MonoBehaviour {
 	/// <summary>
 	/// 树枝
 	/// </summary>
-	public GameObject branch;
+	public Branch branch;
 
 	[HideInInspector]
 	/// <summary>
 	/// 地块唯一标识，一块地只能有一种鸟，暂用string标识，考虑改为枚举
 	/// </summary>
 	public string avesFlag;
-
-	/// <summary>
-	/// 产出树枝计时器
-	/// </summary>
-	private float manufactureBranchesTimer = 0;
-
-	/// <summary>
-	/// 产出树枝的时间间隔
-	/// </summary>
-	[SerializeField]
-	private float manufactureBranchesTimeThreshold = 10f;
 
 	/// <summary>
 	/// 子地图上的设施建造信息
@@ -63,14 +52,12 @@ public class SubMapManager : MonoBehaviour {
 	#region monobehaviour
 	private void Awake() {
 		avesFlag = "";
-		branch = Resources.Load<GameObject>("Branch");
-		branch = transform.Find("Branch").gameObject;
-		branch.SetActive(false);
+		branch = transform.Find("Branch").gameObject.GetComponent<Branch>();
+		branch.gameObject.SetActive(false);
 		CalculateCopulationThresholdTime();
 	}
 
 	private void Update() {
-		ManufactureBranches();
 		HandleAvesCopulation();
 
 	}
@@ -82,29 +69,18 @@ public class SubMapManager : MonoBehaviour {
 		copulationCheckThresholdTime = 10;
 	}
 
-	private void ManufactureBranches() {
+	public void ManufactureBranches(int count, string avesName) {
 
-		if (avesSettled.Count == 0) {
-			// 没有已入住鸟类，无树枝产出
-			return;
+		if (subMapType == AvesDataBase.Instance.GetAvesPreferredTypeByName(avesName)) {
+			float rate = AvesDataBase.Instance.GetProfitRateWhenAvesMatchingTypeByName(name);
+			count = (int)(count * rate);
 		}
-		manufactureBranchesTimer += Time.deltaTime;
-		if (manufactureBranchesTimer < manufactureBranchesTimeThreshold) {
-			// 时间未满不产出树枝
-			return;
-		}
-		manufactureBranchesTimer = 0;
-		// 根据入住鸟类数量、当地建筑设施等产出树枝
-		int avesCount = avesSettled.Count;
-		int branchCount = 1;
-		if (branch.activeSelf) {
-			branch.GetComponent<Branch>().AddCount(branchCount);
-		} else {
-			branch.SetActive(true);
-			branch.GetComponent<Branch>().AddCount(branchCount);
-		}
+		branch.AddCount(count);
+		branch.gameObject.SetActive(true);
+
 
 	}
+
 
 	private void HandleAvesCopulation() {
 		copulationCheckTimer += Time.deltaTime;
@@ -197,7 +173,7 @@ public class SubMapManager : MonoBehaviour {
 
 
 	public void AddBranchEventsForGuide() {
-		branch.AddComponent<BranchEventsForGuide>();
+		branch.gameObject.AddComponent<BranchEventsForGuide>();
 	}
 
 	/// <summary>
