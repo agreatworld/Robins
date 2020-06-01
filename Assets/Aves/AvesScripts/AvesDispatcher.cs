@@ -63,6 +63,8 @@ public class AvesDispatcher : MonoBehaviour {
 	}
 
 	private void HandleTimer() {
+		if (GameGuide.Instance.isGameGuiding)
+			return;
 		timer += Time.deltaTime;
 		if (rank == 1) {
 			if (timer > time) {

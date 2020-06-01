@@ -12,6 +12,7 @@ public class ShopButton : MonoBehaviour {
 	private void Awake() {
 		button = GetComponent<Button>();
 		button.onClick.AddListener(() => {
+			GameGuide.Instance.isGameGuiding = false;
 			shop.SetActive(true);
 		});
 	}

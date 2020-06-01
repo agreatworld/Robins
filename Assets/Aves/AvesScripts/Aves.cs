@@ -67,7 +67,6 @@ public class Aves : MonoBehaviour {
 	public void HandlePlots() {
 		if (plotIndex < 0)
 			return;
-		Debug.Log(transform.parent);
 		PlotTrigger pt = transform.parent.Find("PlotTrigger").GetComponent<PlotTrigger>();
 		string name = this.name.Split('-')[0];
 		pt.SetPlotPath("PlotScripts/Plots/" + name + "/" + name + plotIndex);
