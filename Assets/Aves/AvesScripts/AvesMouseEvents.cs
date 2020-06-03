@@ -27,6 +27,7 @@ public class AvesMouseEvents : MonoBehaviour, IPointerClickHandler {
 	}
 
 	public void OnPointerClick(PointerEventData eventData) {
+		AudioSource.PlayClipAtPoint(AudioManager.Instance.clickAvesAvatar, Vector3.zero);
 		if (!AvesSettleManager.Instance.isPreSettling) {
 			PreSettle();
 		}

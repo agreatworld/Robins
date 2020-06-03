@@ -74,7 +74,10 @@ public class SubMapAttachmentUI : MonoBehaviour {
 			}
 		}
 		for (int i = 0; i < 3; ++i) {
-			avatars[i].sprite = SearchAvesAvatarSprite(avesNames[i]);
+			Sprite s = SearchAvesAvatarSprite(avesNames[i]);
+			if (s != null) {
+				avatars[i].sprite = s;
+			}
 		}
 		currentSubMapManager = subMapManager;
 		//subMapTypeImage.sprite = SearchSubMapTypeSprite(type);

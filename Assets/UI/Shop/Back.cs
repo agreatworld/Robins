@@ -11,6 +11,7 @@ namespace Shop {
 		}
 
 		public void OnPointerClick(PointerEventData eventData) {
+			AudioManager.Instance.audioSource.clip = AudioManager.Instance.sceneBGM;
 			shop.SetActive(false);
 		}
 

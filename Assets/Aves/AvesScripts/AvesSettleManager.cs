@@ -64,6 +64,7 @@ public class AvesSettleManager : MonoBehaviour {
 				aves.name = avesName;
 				aves.GetComponent<Image>().sprite = Resources.Load<Sprite>("Aves/AvesAvatar/" + avesName);
 				aves.SetActive(true);
+				AudioSource.PlayClipAtPoint(AudioManager.Instance.avesCome, Vector3.zero);
 				avesUnits[i].aves = aves;
 				break;
 			}

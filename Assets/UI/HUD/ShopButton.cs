@@ -9,10 +9,13 @@ public class ShopButton : MonoBehaviour {
 
 	public GameObject shop;
 
+
 	private void Awake() {
 		button = GetComponent<Button>();
 		button.onClick.AddListener(() => {
 			GameGuide.Instance.isGameGuiding = false;
+			ShopGoodsDispatcher.Instance.UpdateShop();
+			AudioManager.Instance.audioSource.clip = AudioManager.Instance.shopAudio;
 			shop.SetActive(true);
 		});
 	}

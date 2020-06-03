@@ -120,7 +120,13 @@ public class AvesDispatcher : MonoBehaviour {
 				break;
 		}
 		hasShownUp[name] = true;
-		AvesSettleManager.Instance.AddAves(name);
+		string spriteName = null;
+		if (Random.Range(0 ,100) < 50) {
+			spriteName = name + "-雄";
+		} else {
+			spriteName = name + "-雌";
+		}
+		AvesSettleManager.Instance.AddAves(spriteName);
 		UpdateRank();
 	}
 	private void UpdateRank() {
